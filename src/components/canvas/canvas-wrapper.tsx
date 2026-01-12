@@ -6,6 +6,7 @@ import { Suspense } from "react"
 import { useAppStore } from "@/store"
 import { QUALITY_PRESETS } from "@/lib/constants"
 import { PerformanceMonitor } from "./performance-monitor"
+import { PostProcessing } from "./effects"
 
 export default function CanvasWrapper({ children }: { children: React.ReactNode }) {
   const { quality } = useAppStore()
@@ -24,6 +25,7 @@ export default function CanvasWrapper({ children }: { children: React.ReactNode 
       >
         <Suspense fallback={null}>
             <PerformanceMonitor />
+            <PostProcessing />
             {/* 
                We use 'View' components from drei to render content into DOM elements 
                while keeping a single Canvas context.

@@ -31,6 +31,7 @@ interface AppState {
     setConsoleOpen: (open: boolean) => void;
     logs: { id: string; message: string; timestamp: string; type: 'info' | 'warn' | 'error' | 'sys' }[];
     addLog: (message: string, type?: 'info' | 'warn' | 'error' | 'sys') => void;
+    clearLogs: () => void;
 
     // Performance Scaler
     fps: number;
@@ -83,6 +84,7 @@ export const useAppStore = create<AppState>()(
                     }
                 ]
             })),
+            clearLogs: () => set({ logs: [] }),
 
             // Performance Scaler
             fps: 60,
