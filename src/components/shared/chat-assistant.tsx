@@ -25,7 +25,7 @@ export function ChatAssistant() {
   if (!chatOpen) return null
 
   return (
-    <div className="fixed bottom-20 right-6 z-[100] w-[400px] max-w-[calc(100vw-3rem)] animate-in slide-in-from-bottom-5">
+    <div className="fixed bottom-20 left-4 right-4 sm:left-auto sm:right-6 z-[100] sm:w-[400px]">
       <Card className="border-border/40 shadow-2xl backdrop-blur-xl bg-background/95">
         <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
           <CardTitle className="text-sm font-medium flex items-center gap-2">

@@ -135,7 +135,7 @@ export function CreativeConsole() {
   if (!consoleOpen) return null
 
   return (
-    <div className="fixed top-20 left-6 z-[100] w-[450px] max-w-[calc(100vw-3rem)]">
+    <div className="fixed top-16 sm:top-20 left-4 right-4 sm:left-6 sm:right-auto z-[100] sm:w-[450px]">
       <motion.div
         initial={{ opacity: 0, scale: 0.95, y: -20 }}
         animate={{ opacity: 1, scale: 1, y: 0 }}

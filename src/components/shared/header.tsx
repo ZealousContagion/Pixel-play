@@ -9,6 +9,7 @@ import { Button } from "@/components/ui/button"
 import { Kbd } from "@/components/ui/kbd"
 import { useAppStore } from "@/store"
 import { cn } from "@/lib/utils"
+import { MobileNav } from "./mobile-nav"
 
 export function Header() {
   const pathname = usePathname()
@@ -17,13 +18,14 @@ export function Header() {
   return (
     <header className="fixed top-0 z-50 w-full border-b border-border/40 bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
       <div className="container flex h-14 max-w-screen-2xl items-center">
-        <div className="mr-4 flex">
-          <Link href="/" className="mr-6 flex items-center space-x-2">
-            <span className="hidden font-bold sm:inline-block">
+        <div className="mr-4 flex items-center">
+          <MobileNav />
+          <Link href="/" className="mr-6 hidden items-center space-x-2 md:flex">
+            <span className="font-bold sm:inline-block">
               Pixel Play
             </span>
           </Link>
-          <nav className="flex items-center space-x-6 text-sm font-medium">
+          <nav className="hidden items-center space-x-6 text-sm font-medium md:flex">
             <Link
               href="/projects"
               className={cn(
