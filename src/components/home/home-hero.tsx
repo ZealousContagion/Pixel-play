@@ -1,5 +1,6 @@
 "use client"
 
+import * as React from "react"
 import dynamic from "next/dynamic"
 import { Button } from "@/components/ui/button"
 import { ArrowRight } from "lucide-react"
@@ -7,10 +8,18 @@ import { ContactDialog } from "@/components/shared/contact-dialog"
 
 const View = dynamic(() => import("@react-three/drei").then((mod) => mod.View), {
   ssr: false,
-  loading: () => <div className="h-full w-full bg-muted/10" />,
+  loading: () => (
+    <div className="h-full w-full flex items-center justify-center bg-muted/5">
+        <div className="w-8 h-8 border-2 border-primary border-t-transparent rounded-full animate-spin" />
+    </div>
+  ),
 })
 
 const HeroScene = dynamic(() => import("@/components/canvas/hero-scene").then((mod) => mod.HeroScene), {
+  ssr: false,
+})
+
+const EngineCore = dynamic(() => import("@/components/shared/engine-loader").then((mod) => mod.EngineCore), {
   ssr: false,
 })
 
@@ -24,7 +33,9 @@ export function HomeHero() {
       <section className="relative h-[60vh] w-full flex items-center justify-center overflow-hidden">
         <div className="absolute inset-0 z-0">
           <View className="h-full w-full">
-            <HeroScene />
+            <React.Suspense fallback={<EngineCore />}>
+                <HeroScene />
+            </React.Suspense>
           </View>
         </div>
         

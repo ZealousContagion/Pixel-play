@@ -1,12 +1,17 @@
 "use client"
 
 import dynamic from "next/dynamic"
+import React from "react"
 
 const View = dynamic(() => import("@react-three/drei").then((mod) => mod.View), {
   ssr: false,
 })
 
 const ProjectViewer = dynamic(() => import("@/components/canvas/project-viewer").then((mod) => mod.ProjectViewer), {
+  ssr: false,
+})
+
+const EngineCore = dynamic(() => import("@/components/shared/engine-loader").then((mod) => mod.EngineCore), {
   ssr: false,
 })
 
@@ -31,7 +36,9 @@ export function ViewportRenderer({ type, src, model }: ViewportRendererProps) {
   if (type === 'webgl' || type === 'canvas') {
     return (
       <View className="h-full w-full">
-         <ProjectViewer model={model} />
+         <React.Suspense fallback={<EngineCore />}>
+            <ProjectViewer model={model} />
+         </React.Suspense>
       </View>
     )
   }

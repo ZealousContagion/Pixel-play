@@ -1,13 +1,19 @@
 import { Badge } from "@/components/ui/badge"
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
 import { Separator } from "@/components/ui/separator"
-import { AboutHero } from "@/components/about/about-hero"
 
 export default function AboutPage() {
   return (
     <div className="container py-12 space-y-12">
       {/* Hero Section */}
-      <AboutHero />
+      <section className="flex flex-col items-center text-center gap-6 max-w-3xl mx-auto">
+        <h1 className="text-4xl font-bold tracking-tighter sm:text-5xl md:text-6xl bg-clip-text text-transparent bg-gradient-to-b from-foreground to-foreground/50">
+          The Engineer
+        </h1>
+        <p className="text-xl text-muted-foreground">
+          Obsessed with performance, interactivity, and the perfect pixel. I build digital engines that power modern experiences.
+        </p>
+      </section>
 
       <Separator />
 

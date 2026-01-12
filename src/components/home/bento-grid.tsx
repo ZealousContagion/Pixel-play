@@ -6,8 +6,7 @@ import { ArrowUpRight, Code, Box, PenTool, LayoutGrid } from "lucide-react"
 import Link from "next/link"
 import { cn } from "@/lib/utils"
 import { Badge } from "@/components/ui/badge"
-import { Button } from "@/components/ui/button"
-import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card"
+import { HolographicCard } from "@/components/ui/holographic-card"
 
 // Types matching our MDX frontmatter roughly
 interface Project {
@@ -15,7 +14,7 @@ interface Project {
   meta: {
     title: string
     category: 'web' | 'design' | '3d'
-    description?: string // We might need to add this to frontmatter or derive it
+    description?: string 
     role: string
     tools: string[]
   }
@@ -87,46 +86,47 @@ export function BentoGrid({ projects }: BentoGridProps) {
               transition={{ duration: 0.3 }}
               className={cn(
                 "group relative h-full",
-                // Make the first project span 2 cols if it's "all" view for visual variety
                 activeCategory === 'all' && projects.indexOf(project) === 0 ? "md:col-span-2" : "col-span-1"
               )}
             >
-              <Link href={`/projects/${project.slug}`}>
-                <Card className="h-full overflow-hidden border-border/50 bg-card/50 hover:bg-card/80 transition-colors duration-300 backdrop-blur-sm hover:border-primary/50 group-hover:shadow-[0_0_30px_-10px_var(--primary)]">
-                    <div className="absolute inset-0 bg-gradient-to-br from-primary/10 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
-                    
-                    <CardHeader>
-                        <div className="flex justify-between items-start mb-2">
-                            <Badge variant="outline" className="bg-background/50 backdrop-blur-md uppercase tracking-wider text-[10px]">
-                                {project.meta.category}
+              <Link href={`/projects/${project.slug}`} className="block h-full">
+                <HolographicCard className="h-full">
+                    <div className="p-6 h-full flex flex-col">
+                        <div className="flex justify-between items-start mb-4">
+                            <Badge variant="outline" className="bg-background/50 backdrop-blur-md uppercase tracking-widest text-[10px] border-primary/20">
+                                {project.meta.category}.sys
                             </Badge>
-                            <ArrowUpRight className="w-5 h-5 text-muted-foreground group-hover:text-primary group-hover:translate-x-1 group-hover:-translate-y-1 transition-transform" />
-                        </div>
-                        <CardTitle className="text-xl group-hover:text-primary transition-colors">
-                            {project.meta.title}
-                        </CardTitle>
-                        <CardDescription className="line-clamp-2">
-                            {project.meta.role}
-                        </CardDescription>
-                    </CardHeader>
-                    
-                    <CardContent className="space-y-4">
-                        {/* Placeholder for visual - in real app we'd use project.meta.thumbnail */}
-                        <div className="w-full h-32 rounded-md bg-muted/50 overflow-hidden relative group-hover:scale-[1.02] transition-transform duration-500">
-                           <div className="absolute inset-0 bg-gradient-to-t from-background/80 to-transparent z-10" />
-                           {/* Decorative generic pattern */}
-                           <div className="w-full h-full opacity-20 bg-[radial-gradient(ellipse_at_center,_var(--tw-gradient-stops))] from-primary via-background to-background" />
+                            <ArrowUpRight className="w-5 h-5 text-muted-foreground group-hover:text-primary transition-colors" />
                         </div>
                         
-                        <div className="flex flex-wrap gap-2">
-                            {project.meta.tools.slice(0, 3).map((tool) => (
-                                <Badge key={tool} variant="secondary" className="text-[10px]">
-                                    {tool}
-                                </Badge>
+                        <div className="flex-1 space-y-4">
+                            <h3 className="text-2xl font-bold tracking-tight group-hover:text-primary transition-colors">
+                                {project.meta.title}
+                            </h3>
+                            <p className="text-sm text-muted-foreground leading-relaxed">
+                                {project.meta.role}
+                            </p>
+                            
+                            <div className="w-full h-32 rounded-lg bg-muted/20 border border-border/40 overflow-hidden relative mt-4">
+                                <div className="absolute inset-0 bg-[linear-gradient(to_right,#80808012_1px,transparent_1px),linear-gradient(to_bottom,#80808012_1px,transparent_1px)] bg-[size:24px_24px]" />
+                                <div className="absolute inset-0 bg-gradient-to-t from-background/90 via-transparent to-transparent" />
+                                <div className="absolute bottom-2 left-2 flex gap-1">
+                                     <div className="w-1 h-1 rounded-full bg-primary animate-pulse" />
+                                     <div className="w-1 h-1 rounded-full bg-secondary animate-pulse delay-75" />
+                                     <div className="w-1 h-1 rounded-full bg-accent animate-pulse delay-150" />
+                                </div>
+                            </div>
+                        </div>
+
+                        <div className="mt-6 pt-4 border-t border-border/40 flex flex-wrap gap-2">
+                            {project.meta.tools.slice(0, 4).map((tool) => (
+                                <span key={tool} className="text-[10px] font-mono text-muted-foreground uppercase tracking-tighter">
+                                    #{tool}
+                                </span>
                             ))}
                         </div>
-                    </CardContent>
-                </Card>
+                    </div>
+                </HolographicCard>
               </Link>
             </motion.div>
           ))}
