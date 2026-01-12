@@ -1,6 +1,7 @@
 import { Badge } from "@/components/ui/badge"
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
 import { Separator } from "@/components/ui/separator"
+import { TechStackSection } from "@/components/about/tech-stack-section"
 
 export default function AboutPage() {
   return (
@@ -49,44 +50,19 @@ export default function AboutPage() {
           </div>
         </div>
 
-        {/* Skills Section */}
-        <div className="space-y-6">
-            <h2 className="text-3xl font-bold">Tech Stack</h2>
-            
-            <Card className="bg-muted/10 border-primary/10">
-                <CardHeader>
-                    <CardTitle className="text-lg">Core</CardTitle>
-                </CardHeader>
-                <CardContent className="flex flex-wrap gap-2">
-                    {["TypeScript", "React", "Next.js", "Node.js", "Python", "Rust"].map(s => (
-                        <Badge key={s} variant="secondary">{s}</Badge>
-                    ))}
-                </CardContent>
-            </Card>
-
-            <Card className="bg-muted/10 border-primary/10">
-                <CardHeader>
-                    <CardTitle className="text-lg">Creative & 3D</CardTitle>
-                </CardHeader>
-                <CardContent className="flex flex-wrap gap-2">
-                    {["Three.js", "React Three Fiber", "GLSL", "Blender", "Framer Motion", "GSAP"].map(s => (
-                        <Badge key={s} variant="outline" className="border-primary/50 text-primary">{s}</Badge>
-                    ))}
-                </CardContent>
-            </Card>
-
-            <Card className="bg-muted/10 border-primary/10">
-                <CardHeader>
-                    <CardTitle className="text-lg">Tools & DevOps</CardTitle>
-                </CardHeader>
-                <CardContent className="flex flex-wrap gap-2">
-                    {["Git", "Docker", "AWS", "Vercel", "Figma", "Adobe CC"].map(s => (
-                        <Badge key={s} variant="secondary">{s}</Badge>
-                    ))}
-                </CardContent>
-            </Card>
+        <div className="flex items-center justify-center bg-muted/5 rounded-xl border border-border/40 p-12 overflow-hidden relative">
+             <div className="absolute inset-0 bg-[linear-gradient(to_right,#80808012_1px,transparent_1px),linear-gradient(to_bottom,#80808012_1px,transparent_1px)] bg-[size:24px_24px]" />
+             <div className="text-center relative z-10">
+                <h3 className="text-sm font-mono text-primary mb-2 tracking-widest uppercase">Engineer_Identity</h3>
+                <p className="text-4xl font-bold tracking-tighter">0X_CORE</p>
+             </div>
         </div>
       </section>
+
+      <Separator />
+
+      {/* 3D Tech Orbit */}
+      <TechStackSection />
     </div>
   )
 }
