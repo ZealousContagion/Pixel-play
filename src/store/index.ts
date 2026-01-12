@@ -17,6 +17,10 @@ interface AppState {
     // Edit Mode
     editMode: boolean;
     setEditMode: (enabled: boolean) => void;
+
+    // Chat Assistant
+    chatOpen: boolean;
+    setChatOpen: (open: boolean) => void;
 }
 
 export const useAppStore = create<AppState>()(
@@ -37,6 +41,10 @@ export const useAppStore = create<AppState>()(
             // Edit Mode
             editMode: false,
             setEditMode: (enabled) => set({ editMode: enabled }),
+
+            // Chat Assistant
+            chatOpen: false,
+            setChatOpen: (open) => set({ chatOpen: open }),
         }),
         {
             name: 'pixel-play-storage',

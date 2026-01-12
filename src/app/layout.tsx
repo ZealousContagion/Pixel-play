@@ -6,6 +6,7 @@ import { GlobalPlayhead } from "@/components/shared/global-playhead";
 import { CommandMenu } from "@/components/shared/command-menu";
 import { Toaster } from "@/components/ui/toast";
 import { SceneLayout } from "@/components/canvas/scene-layout";
+import { ChatAssistant } from "@/components/shared/chat-assistant";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -34,6 +35,7 @@ export default function RootLayout({
                 
                 <GlobalPlayhead />
                 <CommandMenu />
+                <ChatAssistant />
                 <Toaster />
             </body>
         </html>

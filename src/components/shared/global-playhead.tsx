@@ -8,7 +8,7 @@ import { useAppStore } from "@/store"
 import { cn } from "@/lib/utils"
 
 export function GlobalPlayhead() {
-  const { quality, setQuality, editMode, setEditMode } = useAppStore()
+  const { quality, setQuality, editMode, setEditMode, setChatOpen } = useAppStore()
 
   return (
     <div className="fixed bottom-6 left-1/2 z-50 -translate-x-1/2 rounded-full border border-border/40 bg-background/80 p-1 backdrop-blur-md shadow-2xl supports-[backdrop-filter]:bg-background/40">
@@ -42,7 +42,8 @@ export function GlobalPlayhead() {
             variant="ghost"
             size="icon"
             className="h-8 w-8 rounded-full"
-            title="AI Actions (Coming Soon)"
+            onClick={() => setChatOpen(true)}
+            title="AI Assistant"
         >
             <Sparkles className="h-4 w-4" />
         </Button>
