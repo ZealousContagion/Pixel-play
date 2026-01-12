@@ -8,6 +8,7 @@ import { CommandMenu } from "@/components/shared/command-menu";
 import { Toaster } from "@/components/ui/toast";
 import { SceneLayout } from "@/components/canvas/scene-layout";
 import { ChatAssistant } from "@/components/shared/chat-assistant";
+import { CreativeConsole } from "@/components/shared/creative-console";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -38,6 +39,7 @@ export default function RootLayout({
                 <GlobalPlayhead />
                 <CommandMenu />
                 <ChatAssistant />
+                <CreativeConsole />
                 <Toaster />
             </body>
         </html>

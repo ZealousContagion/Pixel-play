@@ -3,16 +3,18 @@
 import { useRef, useMemo, useLayoutEffect } from "react"
 import { useFrame, useThree } from "@react-three/fiber"
 import * as THREE from "three"
+import { useAppStore } from "@/store"
 
 export function HeroScene() {
-  const count = 1500
+  const { performanceMode } = useAppStore()
+  const count = performanceMode === 'turbo' ? 1500 : 500
   const mesh = useRef<THREE.Points>(null)
   const { viewport } = useThree()
   
   // Helper to generate random particles in a sphere/cloud
-  const createParticles = (scale: number) => {
-    const temp = new Float32Array(count * 3)
-    for (let i = 0; i < count; i++) {
+  const createParticles = (scale: number, pCount: number) => {
+    const temp = new Float32Array(pCount * 3)
+    for (let i = 0; i < pCount; i++) {
       const t = Math.random() * 100
       const factor = (10 + Math.random() * 50) * scale
       const xFactor = -50 + Math.random() * 100
@@ -25,10 +27,10 @@ export function HeroScene() {
     return temp
   }
 
-  const particlesSky = useMemo(() => createParticles(1), [])
-  const particlesYellow = useMemo(() => createParticles(0.8), [])
-  const particlesRed = useMemo(() => createParticles(0.6), [])
-  const particlesNavy = useMemo(() => createParticles(1.2), [])
+  const particlesSky = useMemo(() => createParticles(1, count), [count])
+  const particlesYellow = useMemo(() => createParticles(0.8, count), [count])
+  const particlesRed = useMemo(() => createParticles(0.6, count), [count])
+  const particlesNavy = useMemo(() => createParticles(1.2, count), [count])
 
   const mouse = useRef([0, 0])
 

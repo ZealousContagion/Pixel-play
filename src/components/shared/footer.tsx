@@ -5,8 +5,10 @@ import { useEffect, useState } from "react"
 import { Github, Twitter, Linkedin, Activity, Clock, Globe } from "lucide-react"
 import { motion } from "framer-motion"
 import { cn } from "@/lib/utils"
+import { useAppStore } from "@/store"
 
 export function Footer() {
+  const { fps, performanceMode } = useAppStore()
   const [time, setTime] = useState<string>("")
   const [latency, setLatency] = useState<number>(24)
 
@@ -108,7 +110,9 @@ export function Footer() {
 
             <div className="hidden md:flex items-center gap-2 text-muted-foreground">
               <Activity className="w-3 h-3" />
-              <span className="text-[10px] font-mono">LATENCY: {latency}ms</span>
+              <span className="text-[10px] font-mono uppercase">
+                LATENCY: {latency}ms | FPS: {fps} | MODE: {performanceMode}
+              </span>
             </div>
           </div>
 
