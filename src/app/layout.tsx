@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { Inter } from "next/font/google";
 import "./globals.css";
 import { Header } from "@/components/shared/header";
+import { Footer } from "@/components/shared/footer";
 import { GlobalPlayhead } from "@/components/shared/global-playhead";
 import { CommandMenu } from "@/components/shared/command-menu";
 import { Toaster } from "@/components/ui/toast";
@@ -33,6 +34,7 @@ export default function RootLayout({
                     {children}
                 </main>
                 
+                <Footer />
                 <GlobalPlayhead />
                 <CommandMenu />
                 <ChatAssistant />

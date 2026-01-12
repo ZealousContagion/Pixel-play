@@ -8,6 +8,18 @@ const nextConfig = {
   },
   experimental: {
     reactCompiler: true,
+    turbo: {
+      rules: {
+        '*.glb': {
+          loaders: ['file-loader'],
+          as: '*.glb',
+        },
+        '*.gltf': {
+          loaders: ['file-loader'],
+          as: '*.gltf',
+        },
+      },
+    },
   },
   webpack: (config) => {
     config.module.rules.push({

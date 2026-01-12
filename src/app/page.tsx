@@ -9,7 +9,7 @@ export default async function Home() {
     <div className="flex flex-col gap-12">
       <HomeHero />
 
-      <section className="container py-12">
+      <section className="container py-12" id="projects-grid">
         <div className="flex flex-col items-center mb-12 text-center">
             <h2 className="text-3xl font-bold tracking-tight mb-4">Selected Works</h2>
             <p className="text-muted-foreground max-w-[600px]">

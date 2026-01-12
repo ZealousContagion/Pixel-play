@@ -21,6 +21,10 @@ interface AppState {
     // Chat Assistant
     chatOpen: boolean;
     setChatOpen: (open: boolean) => void;
+
+    // Blueprint Mode
+    blueprintMode: boolean;
+    setBlueprintMode: (enabled: boolean) => void;
 }
 
 export const useAppStore = create<AppState>()(
@@ -45,6 +49,10 @@ export const useAppStore = create<AppState>()(
             // Chat Assistant
             chatOpen: false,
             setChatOpen: (open) => set({ chatOpen: open }),
+
+            // Blueprint Mode
+            blueprintMode: false,
+            setBlueprintMode: (enabled) => set({ blueprintMode: enabled }),
         }),
         {
             name: 'pixel-play-storage',

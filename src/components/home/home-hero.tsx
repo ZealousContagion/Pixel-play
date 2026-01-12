@@ -3,6 +3,7 @@
 import dynamic from "next/dynamic"
 import { Button } from "@/components/ui/button"
 import { ArrowRight } from "lucide-react"
+import { ContactDialog } from "@/components/shared/contact-dialog"
 
 const View = dynamic(() => import("@react-three/drei").then((mod) => mod.View), {
   ssr: false,
@@ -14,6 +15,11 @@ const HeroScene = dynamic(() => import("@/components/canvas/hero-scene").then((m
 })
 
 export function HomeHero() {
+  const scrollToProjects = () => {
+    const grid = document.getElementById('projects-grid')
+    grid?.scrollIntoView({ behavior: 'smooth' })
+  }
+
   return (
       <section className="relative h-[60vh] w-full flex items-center justify-center overflow-hidden">
         <div className="absolute inset-0 z-0">
@@ -30,12 +36,19 @@ export function HomeHero() {
             A high-performance portfolio showcasing the intersection of code, design, and 3D.
           </p>
           <div className="flex gap-4">
-            <Button size="lg" className="bg-primary text-primary-foreground hover:bg-primary/90">
+            <Button 
+                size="lg" 
+                className="bg-primary text-primary-foreground hover:bg-primary/90"
+                onClick={scrollToProjects}
+            >
               Explore Projects <ArrowRight className="ml-2 h-4 w-4" />
             </Button>
-            <Button variant="outline" size="lg">
-              Contact Me
-            </Button>
+            
+            <ContactDialog>
+                <Button variant="outline" size="lg">
+                Contact Me
+                </Button>
+            </ContactDialog>
           </div>
         </div>
       </section>
