@@ -102,6 +102,16 @@ export function UnifiedTerminal() {
       case 'clear':
         clearLogs()
         break
+      case 'test-audio':
+        addLog('AUDIO_DIAGNOSTIC: Initializing...', 'sys')
+        try {
+            playSound('click', 0.5)
+            addLog('AUDIO_SIGNAL: Click_Pulse dispatched.', 'sys')
+            addLog('NOTE: If no sound, verify "public/sounds/click.mp3" exists.', 'warn')
+        } catch (e) {
+            addLog('AUDIO_ERROR: Hardware interface failed.', 'error')
+        }
+        break
       default:
         addLog(`UNKNOWN_CMD: ${cmd}. Type "help"`, 'error')
         playSound('error', 0.2)
