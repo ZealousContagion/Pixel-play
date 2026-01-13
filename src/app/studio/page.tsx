@@ -22,7 +22,7 @@ import {
     Eye,
     Globe
 } from "lucide-react"
-import { GLBInspector } from "@/components/lab/glb-inspector"
+import { ImageUploader } from "@/components/studio/image-uploader"
 import { cn } from "@/lib/utils"
 
 export default function StudioPage() {
@@ -33,6 +33,12 @@ export default function StudioPage() {
     updateBrand({ colors: { ...brand.colors, [key]: value } })
   }
 
+  const FONT_PRESETS = [
+    { name: 'Modern Sans', value: 'font-sans' },
+    { name: 'Technical Mono', value: 'font-mono' },
+    { name: 'Elegant Serif', value: 'font-serif' },
+  ]
+
   return (
     <div className="flex h-[calc(100vh-3rem)] overflow-hidden">
       {/* Tool Sidebar */}
@@ -40,7 +46,7 @@ export default function StudioPage() {
         <div className="p-6 space-y-8">
             <header className="space-y-2">
                 <Badge variant="outline" className="text-primary border-primary/20 uppercase tracking-[0.2em] text-[9px] rounded-none">
-                    Identity_Architect_v1.0
+                    Identity_Architect_v1.2
                 </Badge>
                 <h1 className="text-3xl font-black uppercase italic tracking-tighter">Studio</h1>
             </header>
@@ -67,17 +73,28 @@ export default function StudioPage() {
 
             <div className="space-y-6">
                 {activeTab === 'visuals' && (
-                    <motion.div initial={{ opacity: 0, x: -10 }} animate={{ opacity: 1, x: 0 }} className="space-y-6">
+                    <motion.div initial={{ opacity: 0, x: -10 }} animate={{ opacity: 1, x: 0 }} className="space-y-8">
                         <div className="space-y-4">
+                            <Label className="text-[10px] uppercase font-mono tracking-widest text-primary italic">Identity_Core</Label>
+                            <ImageUploader 
+                                currentImage={brand.logo} 
+                                onImageLoad={(url) => updateBrand({ logo: url })} 
+                            />
+                        </div>
+
+                        <div className="space-y-4 pt-6 border-t border-border/20">
                             <Label className="text-[10px] uppercase font-mono tracking-widest text-primary italic">Color_Palette</Label>
                             <div className="grid grid-cols-2 gap-3">
                                 {Object.entries(brand.colors).map(([key, color]) => (
                                     <div key={key} className="space-y-2">
-                                        <div className="flex justify-between items-center">
-                                            <span className="text-[9px] font-mono uppercase text-muted-foreground">{key}</span>
-                                        </div>
+                                        <span className="text-[9px] font-mono uppercase text-muted-foreground">{key}</span>
                                         <div className="flex gap-2">
-                                            <div className="w-8 h-8 shrink-0 border border-border/40" style={{ backgroundColor: color }} />
+                                            <input 
+                                                type="color" 
+                                                value={color} 
+                                                onChange={(e) => handleColorChange(key as any, e.target.value)}
+                                                className="w-8 h-8 shrink-0 border border-border/40 bg-transparent cursor-pointer p-0"
+                                            />
                                             <Input 
                                                 value={color} 
                                                 onChange={(e) => handleColorChange(key as any, e.target.value)}
@@ -90,9 +107,18 @@ export default function StudioPage() {
                         </div>
 
                         <div className="space-y-4 pt-6 border-t border-border/20">
-                            <Label className="text-[10px] uppercase font-mono tracking-widest text-primary italic">Asset_Injection</Label>
-                            <div className="h-32">
-                                <GLBInspector onModelLoad={(url) => updateBrand({ logo: url })} />
+                            <Label className="text-[10px] uppercase font-mono tracking-widest text-primary italic">Typography_Selection</Label>
+                            <div className="grid gap-2">
+                                {FONT_PRESETS.map((font) => (
+                                    <button 
+                                        key={font.name}
+                                        onClick={() => addLog(`FONT_UPDATED: ${font.name}`, 'info')}
+                                        className="flex items-center justify-between p-3 border border-border/40 hover:border-primary/40 bg-background/50 text-[10px] font-mono uppercase transition-colors"
+                                    >
+                                        <span>{font.name}</span>
+                                        <div className="w-2 h-2 rounded-full border border-border/60" />
+                                    </button>
+                                ))}
                             </div>
                         </div>
                     </motion.div>
@@ -101,14 +127,26 @@ export default function StudioPage() {
                 {activeTab === 'voice' && (
                     <motion.div initial={{ opacity: 0, x: -10 }} animate={{ opacity: 1, x: 0 }} className="space-y-6">
                         <div className="space-y-4">
-                            <Label className="text-[10px] uppercase font-mono tracking-widest text-primary italic">System_Voice</Label>
+                            <Label className="text-[10px] uppercase font-mono tracking-widest text-primary italic">System_Name</Label>
+                            <Input 
+                                value={brand.name}
+                                onChange={(e) => updateBrand({ name: e.target.value })}
+                                className="h-10 text-xs font-bold rounded-none bg-background uppercase italic"
+                            />
+                        </div>
+                        <div className="space-y-4">
+                            <Label className="text-[10px] uppercase font-mono tracking-widest text-primary italic">Brand_Tone_Matrix</Label>
                             <Textarea 
                                 value={brand.voice}
                                 onChange={(e) => updateBrand({ voice: e.target.value })}
                                 placeholder="Describe the personality..."
                                 className="min-h-[150px] text-xs font-medium bg-background border-border/40 rounded-none italic"
                             />
-                            <Button variant="outline" className="w-full h-10 rounded-none text-[10px] font-mono uppercase gap-2 border-primary/20 hover:bg-primary/5">
+                            <Button 
+                                variant="outline" 
+                                className="w-full h-10 rounded-none text-[10px] font-mono uppercase gap-2 border-primary/20 hover:bg-primary/5"
+                                onClick={() => addLog('AI_VOICE_SYNC: Analyzing patterns...', 'sys')}
+                            >
                                 <Sparkles className="w-3 h-3 text-primary" />
                                 Sync with AI Assistant
                             </Button>
@@ -124,21 +162,34 @@ export default function StudioPage() {
                         <p className="text-[10px] font-mono text-muted-foreground uppercase tracking-widest leading-relaxed">
                             System identity is ready for deployment. Review the live preview to the right.
                         </p>
-                        <Button 
-                            onClick={() => {
-                                addLog(`IDENTITY_EXPORTED: ${brand.name.toUpperCase()}`, 'sys')
-                                const blob = new Blob([JSON.stringify(brand, null, 2)], { type: 'application/json' })
-                                const url = URL.createObjectURL(blob)
-                                const a = document.createElement('a')
-                                a.href = url
-                                a.download = `${brand.name.toLowerCase().replace(/\s/g, '-')}-identity.json`
-                                a.click()
-                            }}
-                            className="w-full h-12 rounded-none text-xs font-bold uppercase tracking-widest gap-2"
-                        >
-                            <Download className="w-4 h-4" />
-                            Export Configuration
-                        </Button>
+                        <div className="space-y-2">
+                            <Button 
+                                onClick={() => {
+                                    addLog(`IDENTITY_EXPORTED: ${brand.name.toUpperCase()}`, 'sys')
+                                    const blob = new Blob([JSON.stringify(brand, null, 2)], { type: 'application/json' })
+                                    const url = URL.createObjectURL(blob)
+                                    const a = document.createElement('a')
+                                    a.href = url
+                                    a.download = `${brand.name.toLowerCase().replace(/\s/g, '-')}-identity.json`
+                                    a.click()
+                                }}
+                                className="w-full h-12 rounded-none text-xs font-bold uppercase tracking-widest gap-2 shadow-[4px_4px_0px_0px_hsl(var(--primary))]"
+                            >
+                                <Download className="w-4 h-4" />
+                                Export Configuration
+                            </Button>
+                            <Button 
+                                variant="outline"
+                                className="w-full h-12 rounded-none text-xs font-bold uppercase tracking-widest border-primary/20"
+                                onClick={() => addLog('SAVE_PROTOCOL: Accessing secure cloud...', 'sys')}
+                            >
+                                <Save className="w-4 h-4 mr-2" />
+                                Save to Cloud
+                            </Button>
+                        </div>
+                        <p className="text-[8px] font-mono text-muted-foreground uppercase opacity-40 pt-4">
+                            Advanced features require developer authentication.
+                        </p>
                     </motion.div>
                 )}
             </div>
