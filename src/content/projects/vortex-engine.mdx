@@ -1,0 +1,32 @@
+---
+title: Vortex Engine
+category: 3d
+role: Graphics Engineer
+tools: ['Three.js', 'WebGL', 'GLSL']
+featured: true
+thumbnail: /projects/vortex.jpg
+metrics:
+  - label: "Particles"
+    value: "1M+"
+  - label: "Frame Rate"
+    value: "120FPS"
+viewport:
+  type: webgl
+---
+
+## Overview
+Vortex Engine is a high-performance particle simulation system capable of rendering over a million unique particles in real-time within the browser.
+
+## Technical Objective
+To create a fluid dynamics simulation that leverages the full power of GPU computation via custom GLSL compute shaders.
+
+## Key Engineering
+- **GPGPU Simulation:** Using Frame Buffer Objects (FBOs) to store particle positions and velocities in textures.
+- **Custom Shaders:** A sophisticated vertex shader that handles particle positioning, and a fragment shader for the "energy" glow effects.
+- **Optimization:** Utilized Instanced Mesh rendering to keep draw calls at a minimum.
+
+## Challenges Overcome
+The primary hurdle was syncing the physics calculation with the rendering loop. By moving all calculations to the GPU, I was able to achieve a 10x increase in particle count compared to CPU-based simulations.
+
+## Final Result
+A mesmerizing, interactive 3D vortex that users can manipulate with their mouse or touch, demonstrating the high-performance capabilities of modern WebGL.

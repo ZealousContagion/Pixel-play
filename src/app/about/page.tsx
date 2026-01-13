@@ -61,6 +61,50 @@ export default function AboutPage() {
 
       <Separator />
 
+      {/* Philosophy & Approach */}
+      <section className="grid gap-12 md:grid-cols-2">
+        <div className="space-y-6">
+          <h2 className="text-3xl font-bold uppercase tracking-tighter">Design Philosophy</h2>
+          <div className="space-y-4 text-muted-foreground leading-relaxed">
+            <p>
+              I believe that great digital experiences are born at the intersection of rigorous engineering and intuitive design. My approach is rooted in the "Creative Engine" concept—where every interaction is a calculated gear in a larger, beautiful machine.
+            </p>
+            <p>
+              Performance isn't just a metric; it's a user experience requirement. Whether it's a 3D shader or a simple contact form, I strive for zero-latency feedback and meaningful motion that guides the user rather than distracting them.
+            </p>
+          </div>
+          
+          <div className="grid grid-cols-2 gap-4 pt-4">
+             <div className="p-4 rounded-lg border border-border/40 bg-muted/5">
+                <h4 className="font-bold text-primary mb-1 text-sm">Integrity</h4>
+                <p className="text-xs text-muted-foreground">Clean code that scales and remains maintainable.</p>
+             </div>
+             <div className="p-4 rounded-lg border border-border/40 bg-muted/5">
+                <h4 className="font-bold text-secondary mb-1 text-sm">Interactivity</h4>
+                <p className="text-xs text-muted-foreground">Tactile digital interfaces that respond to the human touch.</p>
+             </div>
+          </div>
+        </div>
+
+        <div className="relative aspect-square rounded-2xl overflow-hidden border border-border/40 group">
+            <div className="absolute inset-0 bg-gradient-to-br from-primary/20 via-transparent to-accent/20 z-0" />
+            <div className="absolute inset-0 flex items-center justify-center z-10">
+                <div className="text-center space-y-2">
+                    <div className="w-24 h-24 rounded-full bg-background border-4 border-primary/20 mx-auto flex items-center justify-center overflow-hidden">
+                         <img src="/logo.svg" alt="Branding" className="w-12 h-12 opacity-50 grayscale group-hover:grayscale-0 transition-all duration-500" />
+                    </div>
+                    <p className="text-[10px] font-mono text-muted-foreground uppercase tracking-widest">Engineer_Face_Scan.png</p>
+                </div>
+            </div>
+            {/* Decorative Scanner */}
+            <div className="absolute inset-0 pointer-events-none z-20">
+                <div className="scanner-line opacity-10" />
+            </div>
+        </div>
+      </section>
+
+      <Separator />
+
       {/* 3D Tech Orbit */}
       <TechStackSection />
     </div>

@@ -2,19 +2,36 @@
 title: Cyber Runner
 category: 3d
 role: Creative Developer
-tools: ['R3F', 'Rapier', 'Zustand']
+tools: ['React Three Fiber', 'Rapier', 'Zustand', 'GLSL']
 featured: true
 thumbnail: /projects/runner.jpg
+metrics:
+  - label: "Draw Calls"
+    value: "42"
+  - label: "Physics Loop"
+    value: "120Hz"
 viewport:
   type: webgl
   model: /models/runner.glb
 ---
 
-# Cyber Runner
+## Overview
+Cyber Runner is an experimental 3D endless runner built to push the boundaries of browser-based gaming. It features procedurally generated cityscapes and deterministic physics rendering.
 
-An endless runner game built entirely in the browser using React Three Fiber.
+## The Goal
+The objective was to create a "console-quality" experience in a standard web browser, maintaining high visual fidelity while ensuring the game remains accessible on mid-range mobile devices.
 
-## Tech Stack
-- **Physics:** Rapier.js for deterministic physics.
-- **State:** Zustand for high-frequency game loop management.
-- **Shaders:** Custom GLSL for the neon city generation.
+## Key Challenges
+- **Infinite Generation:** Creating a seamless, infinite world without causing memory leaks or "garbage collection" stutters.
+- **Physics Accuracy:** Ensuring the runner's collision detection remains precise even at high velocities.
+- **Visuals:** Implementing neon-glow effects (Bloom) without destroying the frame rate on mobile.
+
+## Process Highlights
+- **Procedural Geometry:** I developed a "chunk-based" loading system. As the player moves forward, buildings are generated ahead and pooled for reuse, minimizing instantiation overhead.
+- **Custom Shaders:** Instead of using standard materials, I wrote custom GLSL shaders for the neon buildings, allowing for high-performance animation within a single draw call.
+- **Deterministic Physics:** Integrated Rapier.js to ensure the game mechanics feel identical across different browser engines.
+
+## Final Outcomes
+- **Performance:** Maintained a stable 60FPS on iPhone 12+ and mid-range Android devices.
+- **Engagement:** The project was featured on several creative tech galleries, garnering over 10k unique visitors in its first week.
+- **Open Source:** The core procedural generation logic was released as a separate utility library for the R3F community.

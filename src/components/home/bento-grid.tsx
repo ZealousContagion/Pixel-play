@@ -17,6 +17,7 @@ interface Project {
     description?: string 
     role: string
     tools: string[]
+    thumbnail?: string
   }
 }
 
@@ -108,9 +109,20 @@ export function BentoGrid({ projects }: BentoGridProps) {
                                 {project.meta.role}
                             </p>
                             
-                            <div className="w-full h-24 sm:h-32 rounded-lg bg-muted/20 border border-border/40 overflow-hidden relative mt-4">
-                                <div className="absolute inset-0 bg-[linear-gradient(to_right,#80808012_1px,transparent_1px),linear-gradient(to_bottom,#80808012_1px,transparent_1px)] bg-[size:24px_24px]" />
-                                <div className="absolute inset-0 bg-gradient-to-t from-background/90 via-transparent to-transparent" />
+                            <div className="w-full h-32 sm:h-40 rounded-lg bg-muted/20 border border-border/40 overflow-hidden relative mt-4">
+                                {project.meta.thumbnail ? (
+                                    <img 
+                                        src={project.meta.thumbnail} 
+                                        alt={project.meta.title}
+                                        className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
+                                    />
+                                ) : (
+                                    <>
+                                        <div className="absolute inset-0 bg-[linear-gradient(to_right,#80808012_1px,transparent_1px),linear-gradient(to_bottom,#80808012_1px,transparent_1px)] bg-[size:24px_24px]" />
+                                        <div className="absolute inset-0 bg-gradient-to-t from-background/90 via-transparent to-transparent" />
+                                    </>
+                                )}
+                                <div className="absolute inset-0 bg-primary/5 opacity-0 group-hover:opacity-100 transition-opacity" />
                                 <div className="absolute bottom-2 left-2 flex gap-1">
                                      <div className="w-1 h-1 rounded-full bg-primary animate-pulse" />
                                      <div className="w-1 h-1 rounded-full bg-secondary animate-pulse delay-75" />

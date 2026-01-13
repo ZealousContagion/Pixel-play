@@ -80,3 +80,32 @@
   background: rgba(0, 0, 0, 0.2);
   border: 1px solid rgba(255, 255, 255, 0.1);
 }
+
+@layer utilities {
+  .custom-scrollbar::-webkit-scrollbar {
+    width: 4px;
+  }
+  .custom-scrollbar::-webkit-scrollbar-track {
+    background: transparent;
+  }
+  .custom-scrollbar::-webkit-scrollbar-thumb {
+    @apply bg-muted-foreground/20 rounded-full hover:bg-primary/50 transition-colors;
+  }
+
+  .scanner-line {
+    background: linear-gradient(to bottom, 
+      transparent, 
+      hsl(var(--primary) / 0.5) 50%, 
+      transparent
+    );
+    height: 100px;
+    width: 100%;
+    position: absolute;
+    animation: scan 3s linear infinite;
+  }
+
+  @keyframes scan {
+    from { transform: translateY(-100%); }
+    to { transform: translateY(400%); }
+  }
+}

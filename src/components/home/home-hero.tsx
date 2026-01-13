@@ -64,6 +64,11 @@ export function HomeHero() {
             </React.Suspense>
           </View>
         </div>
+
+        {/* Decorative Scanner Line */}
+        <div className="absolute inset-0 pointer-events-none overflow-hidden z-[5]">
+             <div className="scanner-line opacity-20" />
+        </div>
         
         <div className="container relative z-10 flex flex-col items-center gap-6 sm:gap-8 text-center px-4">
           <div className="space-y-3 sm:space-y-4">

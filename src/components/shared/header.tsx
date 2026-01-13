@@ -20,8 +20,15 @@ export function Header() {
       <div className="container flex h-14 max-w-screen-2xl items-center">
         <div className="mr-4 flex items-center">
           <MobileNav />
-          <Link href="/" className="mr-6 hidden items-center space-x-2 md:flex">
-            <span className="font-bold sm:inline-block">
+          <Link href="/" className="mr-6 hidden items-center space-x-2 md:flex group">
+            <div className="relative w-8 h-8 transition-transform duration-300 group-hover:scale-110">
+                <img 
+                  src={theme === 'dark' ? "/logo-white.svg" : "/logo.svg"} 
+                  alt="Pixel Play Logo" 
+                  className="w-full h-full object-contain" 
+                />
+            </div>
+            <span className="font-bold sm:inline-block tracking-tighter uppercase text-lg">
               Pixel Play
             </span>
           </Link>
@@ -47,6 +54,17 @@ export function Header() {
               )}
             >
               About
+            </Link>
+            <Link
+              href="/resume"
+              className={cn(
+                "transition-colors hover:text-foreground/80",
+                pathname === "/resume"
+                  ? "text-foreground"
+                  : "text-foreground/60"
+              )}
+            >
+              Resume
             </Link>
             <Link
               href="/contact"

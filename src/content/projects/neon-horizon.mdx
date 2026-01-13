@@ -5,17 +5,31 @@ role: Lead Animator
 tools: ['Three.js', 'React', 'GLSL']
 featured: true
 thumbnail: /projects/neon-horizon.jpg
+metrics:
+  - label: "Draw Calls"
+    value: "28"
+  - label: "Visual Assets"
+    value: "Custom"
 viewport:
   type: webgl
   model: /models/neon-city.glb
 ---
 
-# Neon Horizon
+## Overview
+Neon Horizon is an immersive city flythrough that showcases the power of custom shaders and instanced geometry in Three.js. It was designed as a "benchmark" piece for high-end creative web experiences.
 
-A cyberpunk city flythrough created with Three.js and custom GLSL shaders.
+## Technical Goals
+- Render thousands of unique buildings without exceeding 30 draw calls.
+- Implement a sophisticated post-processing stack (Bloom, Scanlines, Chromatic Aberration).
+- Create a reactive environment that responds to real-time audio data.
 
-## Technical Details
+## Execution
+- **Instancing:** Instead of rendering each building individually, I used `InstancedMesh` to draw all structures of a similar type in a single call, drastically reducing CPU-to-GPU overhead.
+- **GLSL Post-Processing:** Wrote a custom "Cyber-Scanline" pass that gives the scene its signature retro-future digital look.
+- **Data Flow:** Built a custom audio analyzer that maps frequency bands to building height and emissive light intensity.
 
-- Custom instancing for building geometry
-- Post-processing pipeline (Bloom, Chromatic Aberration)
-- Reactive audio visualization
+## Challenges
+Balancing the heavy post-processing effects with mobile performance was the biggest hurdle. I implemented a dynamic resolution scaling system that adjusts based on the user's current frame rate.
+
+## Result
+A stable 60FPS experience that has been used as a demo for several 3D-on-the-web presentations. It remains one of my most technically challenging and visually rewarding projects.
