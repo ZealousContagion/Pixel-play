@@ -18,17 +18,11 @@ interface AppState {
     editMode: boolean;
     setEditMode: (enabled: boolean) => void;
 
-    // Chat Assistant
-    chatOpen: boolean;
-    setChatOpen: (open: boolean) => void;
-
-    // Blueprint Mode
-    blueprintMode: boolean;
-    setBlueprintMode: (enabled: boolean) => void;
-
-    // Creative Console
-    consoleOpen: boolean;
-    setConsoleOpen: (open: boolean) => void;
+    // Unified Terminal
+    terminalOpen: boolean;
+    setTerminalOpen: (open: boolean) => void;
+    terminalMode: 'ai' | 'sys';
+    setTerminalMode: (mode: 'ai' | 'sys') => void;
     logs: { id: string; message: string; timestamp: string; type: 'info' | 'warn' | 'error' | 'sys' }[];
     addLog: (message: string, type?: 'info' | 'warn' | 'error' | 'sys') => void;
     clearLogs: () => void;
@@ -40,6 +34,10 @@ interface AppState {
     setPerformanceMode: (mode: 'turbo' | 'eco') => void;
     autoScale: boolean;
     setAutoScale: (enabled: boolean) => void;
+
+    // Blueprint Mode
+    blueprintMode: boolean;
+    setBlueprintMode: (enabled: boolean) => void;
 
     // Brand Architect
     brand: {
@@ -78,18 +76,17 @@ export const useAppStore = create<AppState>()(
             editMode: false,
             setEditMode: (enabled) => set({ editMode: enabled }),
 
-            chatOpen: false,
-            setChatOpen: (open) => set({ chatOpen: open }),
-
             blueprintMode: false,
-            setBlueprintMode: (enabled) => set({ blueprintMode: enabled }),
+            setBlueprintMode: (enabled: boolean) => set({ blueprintMode: enabled }),
 
-            // Creative Console
-            consoleOpen: false,
-            setConsoleOpen: (open) => set({ consoleOpen: open }),
+            // Unified Terminal
+            terminalOpen: false,
+            setTerminalOpen: (open) => set({ terminalOpen: open }),
+            terminalMode: 'ai',
+            setTerminalMode: (terminalMode) => set({ terminalMode }),
             logs: [{ 
                 id: '1', 
-                message: 'CREATIVE_ENGINE_v1.0.0 initialized...', 
+                message: 'ENGINE_TERMINAL_v2.0 initialized...', 
                 timestamp: new Date().toLocaleTimeString(), 
                 type: 'sys' 
             }],

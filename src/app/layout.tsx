@@ -7,9 +7,8 @@ import { GlobalPlayhead } from "@/components/shared/global-playhead";
 import { CommandMenu } from "@/components/shared/command-menu";
 import { Toaster } from "@/components/ui/toast";
 import { SceneLayout } from "@/components/canvas/scene-layout";
-import { ChatAssistant } from "@/components/shared/chat-assistant";
-import { CreativeConsole } from "@/components/shared/creative-console";
 import { ThemeSync } from "@/components/shared/theme-sync";
+import { UnifiedTerminal } from "@/components/shared/unified-terminal";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -62,8 +61,7 @@ export default function RootLayout({
                 <Footer />
                 <GlobalPlayhead />
                 <CommandMenu />
-                <ChatAssistant />
-                <CreativeConsole />
+                <UnifiedTerminal />
                 <Toaster />
             </body>
         </html>

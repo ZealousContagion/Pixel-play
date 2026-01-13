@@ -38,10 +38,8 @@ export function CommandMenu() {
     setCommandPaletteOpen, 
     setTheme, 
     theme,
-    setConsoleOpen, 
-    consoleOpen,
-    chatOpen,
-    setChatOpen,
+    terminalOpen,
+    setTerminalOpen,
     setPerformanceMode,
     performanceMode
   } = useAppStore()
@@ -59,13 +57,13 @@ export function CommandMenu() {
     },
     {
       key: "`",
-      callback: () => setConsoleOpen(!consoleOpen),
+      callback: () => setTerminalOpen(!terminalOpen),
     },
     {
       key: "l",
       ctrlKey: true,
       shiftKey: true,
-      callback: () => setChatOpen(!chatOpen),
+      callback: () => setTerminalOpen(!terminalOpen),
     }
   ])
 
@@ -95,15 +93,10 @@ export function CommandMenu() {
         </CommandGroup>
         <CommandSeparator />
         <CommandGroup heading="Tools">
-          <CommandItem onSelect={() => runCommand(() => setConsoleOpen(!consoleOpen))}>
+          <CommandItem onSelect={() => runCommand(() => setTerminalOpen(!terminalOpen))}>
             <Terminal className="mr-2 h-4 w-4" />
-            <span>Toggle Creative Console</span>
+            <span>Toggle Engine Terminal</span>
             <CommandShortcut>`</CommandShortcut>
-          </CommandItem>
-          <CommandItem onSelect={() => runCommand(() => setChatOpen(!chatOpen))}>
-            <MessageSquare className="mr-2 h-4 w-4" />
-            <span>Toggle Chat Assistant</span>
-            <CommandShortcut>⌃⇧L</CommandShortcut>
           </CommandItem>
         </CommandGroup>
         <CommandSeparator />

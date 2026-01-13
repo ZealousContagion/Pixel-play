@@ -34,8 +34,8 @@ export function HomeHero() {
     setPerformanceMode, 
     autoScale, 
     setAutoScale, 
-    consoleOpen, 
-    setConsoleOpen,
+    terminalOpen, 
+    setTerminalOpen,
     addLog 
   } = useAppStore()
   
@@ -140,9 +140,9 @@ export function HomeHero() {
           <Button 
             variant="ghost" 
             className="mt-4 font-mono text-[8px] sm:text-[10px] uppercase tracking-[0.2em] text-muted-foreground hover:text-primary h-auto py-2"
-            onClick={() => setConsoleOpen(!consoleOpen)}
+            onClick={() => setTerminalOpen(!terminalOpen)}
           >
-            {consoleOpen ? "[ Terminate_Console ]" : "[ Access_System_Shell ]"}
+            {terminalOpen ? "[ Terminate_Terminal ]" : "[ Access_Engine_Terminal ]"}
           </Button>
         </div>
       </section>

@@ -8,17 +8,17 @@ import { useAppStore } from "@/store"
 import { cn } from "@/lib/utils"
 
 export function GlobalPlayhead() {
-  const { quality, setQuality, editMode, setEditMode, setChatOpen, consoleOpen, setConsoleOpen } = useAppStore()
+  const { quality, setQuality, editMode, setEditMode, terminalOpen, setTerminalOpen } = useAppStore()
 
   return (
     <div className="fixed bottom-4 left-1/2 z-50 -translate-x-1/2 rounded-full border border-border/40 bg-background/80 p-1 backdrop-blur-md shadow-2xl supports-[backdrop-filter]:bg-background/40 max-w-[95vw]">
       <div className="flex items-center gap-0.5 sm:gap-1">
         <Button
-          variant={consoleOpen ? "default" : "ghost"}
+          variant={terminalOpen ? "default" : "ghost"}
           size="icon"
           className="h-7 w-7 sm:h-8 sm:w-8 rounded-full"
-          onClick={() => setConsoleOpen(!consoleOpen)}
-          title="Toggle Terminal Console"
+          onClick={() => setTerminalOpen(!terminalOpen)}
+          title="Toggle Engine Terminal"
         >
           <Terminal className="h-3.5 w-3.5 sm:h-4 sm:w-4" />
         </Button>
@@ -48,16 +48,6 @@ export function GlobalPlayhead() {
           title={`Quality: ${quality}`}
         >
           <Monitor className={cn("h-3.5 w-3.5 sm:h-4 sm:w-4", quality === 'high' && "text-primary")} />
-        </Button>
-
-        <Button
-            variant="ghost"
-            size="icon"
-            className="h-7 w-7 sm:h-8 sm:w-8 rounded-full"
-            onClick={() => setChatOpen(true)}
-            title="AI Assistant"
-        >
-            <Sparkles className="h-3.5 w-3.5 sm:h-4 sm:w-4" />
         </Button>
 
         <div className="h-4 w-px bg-border/50 mx-0.5 sm:mx-1" />
