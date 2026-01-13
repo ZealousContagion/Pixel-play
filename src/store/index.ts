@@ -3,8 +3,9 @@ import { persist } from 'zustand/middleware';
 
 interface AppState {
     // Theme
-    theme: 'light' | 'dark';
-    setTheme: (theme: 'light' | 'dark') => void;
+    theme: string;
+    setTheme: (theme: string) => void;
+    availableThemes: { id: string; name: string; type: 'dark' | 'light' }[];
 
     // 3D Quality Settings
     quality: 'low' | 'medium' | 'high';
@@ -46,8 +47,28 @@ export const useAppStore = create<AppState>()(
     persist(
         (set) => ({
             // ... existing state ...
-            theme: 'dark',
-            setTheme: (theme) => set({ theme }),
+            theme: 'dark-modern',
+            setTheme: (theme) => {
+                // Remove all theme classes from document element
+                const doc = document.documentElement;
+                doc.classList.forEach(className => {
+                    if (className.startsWith('theme-')) doc.classList.remove(className);
+                });
+                doc.classList.add(`theme-${theme}`);
+                // Also handle light/dark class for system/shadcn compatibility
+                const isLight = theme.includes('light');
+                doc.classList.toggle('dark', !isLight);
+                
+                set({ theme });
+            },
+            availableThemes: [
+                { id: 'dark-modern', name: 'Dark Modern', type: 'dark' },
+                { id: 'tokyo-night', name: 'Tokyo Night', type: 'dark' },
+                { id: 'synthwave', name: 'Synthwave \'84', type: 'dark' },
+                { id: 'monokai', name: 'Monokai', type: 'dark' },
+                { id: 'github-light', name: 'GitHub Light', type: 'light' },
+                { id: 'solarized-dark', name: 'Solarized Dark', type: 'dark' },
+            ],
 
             quality: 'high',
             setQuality: (quality) => set({ quality }),

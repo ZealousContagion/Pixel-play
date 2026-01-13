@@ -19,42 +19,34 @@ export default function AboutPage() {
       <Separator />
 
       {/* Experience Section */}
-      <section className="grid gap-8 md:grid-cols-2">
+      <section className="grid gap-6 md:grid-cols-2">
         <div className="space-y-4">
-          <h2 className="text-3xl font-bold">Experience</h2>
-          <div className="space-y-8">
-            <div className="relative pl-8 border-l border-primary/20">
-                <span className="absolute -left-1.5 top-1.5 h-3 w-3 rounded-full bg-primary" />
-                <h3 className="text-xl font-bold">Senior Creative Developer</h3>
-                <p className="text-sm text-muted-foreground">TechCorp Inc. | 2023 - Present</p>
-                <p className="mt-2 text-muted-foreground">
+          <h2 className="text-2xl font-black uppercase italic tracking-tighter">Experience</h2>
+          <div className="space-y-4">
+            <div className="relative pl-6 border-l border-primary/20 py-1">
+                <span className="absolute -left-1.5 top-2.5 h-3 w-3 rounded-none bg-primary" />
+                <h3 className="text-lg font-bold uppercase italic">Senior Creative Developer</h3>
+                <p className="text-[10px] font-mono text-muted-foreground">TechCorp Inc. | 2023 - Present</p>
+                <p className="mt-2 text-sm text-muted-foreground leading-relaxed">
                     Leading the frontend architecture for high-traffic marketing campaigns. Implemented R3F for immersive product showcases.
                 </p>
             </div>
-            <div className="relative pl-8 border-l border-primary/20">
-                <span className="absolute -left-1.5 top-1.5 h-3 w-3 rounded-full bg-secondary" />
-                <h3 className="text-xl font-bold">Frontend Engineer</h3>
-                <p className="text-sm text-muted-foreground">StartUp Lab | 2020 - 2023</p>
-                <p className="mt-2 text-muted-foreground">
-                    Developed the core SaaS dashboard using Next.js and TypeScript. Reduced load times by 40% via code-splitting strategies.
-                </p>
-            </div>
-             <div className="relative pl-8 border-l border-primary/20">
-                <span className="absolute -left-1.5 top-1.5 h-3 w-3 rounded-full bg-muted-foreground" />
-                <h3 className="text-xl font-bold">Freelance Designer</h3>
-                <p className="text-sm text-muted-foreground">Remote | 2018 - 2020</p>
-                <p className="mt-2 text-muted-foreground">
-                    Delivered branding and web design packages for early-stage startups.
+            <div className="relative pl-6 border-l border-primary/20 py-1">
+                <span className="absolute -left-1.5 top-2.5 h-3 w-3 rounded-none bg-secondary" />
+                <h3 className="text-lg font-bold uppercase italic">Frontend Engineer</h3>
+                <p className="text-[10px] font-mono text-muted-foreground">StartUp Lab | 2020 - 2023</p>
+                <p className="mt-2 text-sm text-muted-foreground leading-relaxed">
+                    Developed the core SaaS dashboard using Next.js and TypeScript. Reduced load times by 40% via code-splitting.
                 </p>
             </div>
           </div>
         </div>
 
-        <div className="flex items-center justify-center bg-muted/5 rounded-xl border border-border/40 p-12 overflow-hidden relative">
-             <div className="absolute inset-0 bg-[linear-gradient(to_right,#80808012_1px,transparent_1px),linear-gradient(to_bottom,#80808012_1px,transparent_1px)] bg-[size:24px_24px]" />
+        <div className="flex items-center justify-center bg-muted/5 rounded-none border border-border/40 p-8 overflow-hidden relative">
+             <div className="absolute inset-0 bg-[linear-gradient(to_right,#80808012_1px,transparent_1px),linear-gradient(to_bottom,#80808012_1px,transparent_1px)] bg-[size:16px_16px]" />
              <div className="text-center relative z-10">
-                <h3 className="text-sm font-mono text-primary mb-2 tracking-widest uppercase">Engineer_Identity</h3>
-                <p className="text-4xl font-bold tracking-tighter">0X_CORE</p>
+                <h3 className="text-[10px] font-mono text-primary mb-1 tracking-widest uppercase">Engineer_Identity</h3>
+                <p className="text-3xl font-black tracking-tighter italic">0X_CORE</p>
              </div>
         </div>
       </section>
@@ -62,31 +54,28 @@ export default function AboutPage() {
       <Separator />
 
       {/* Philosophy & Approach */}
-      <section className="grid gap-12 md:grid-cols-2">
-        <div className="space-y-6">
-          <h2 className="text-3xl font-bold uppercase tracking-tighter">Design Philosophy</h2>
-          <div className="space-y-4 text-muted-foreground leading-relaxed">
+      <section className="grid gap-8 md:grid-cols-2">
+        <div className="space-y-4">
+          <h2 className="text-2xl font-black uppercase italic tracking-tighter">Design Philosophy</h2>
+          <div className="space-y-4 text-sm text-muted-foreground leading-relaxed">
             <p>
-              I believe that great digital experiences are born at the intersection of rigorous engineering and intuitive design. My approach is rooted in the "Creative Engine" concept—where every interaction is a calculated gear in a larger, beautiful machine.
-            </p>
-            <p>
-              Performance isn't just a metric; it's a user experience requirement. Whether it's a 3D shader or a simple contact form, I strive for zero-latency feedback and meaningful motion that guides the user rather than distracting them.
+              I believe that great digital experiences are born at the intersection of rigorous engineering and intuitive design. My approach is rooted in the "Creative Engine" concept.
             </p>
           </div>
           
-          <div className="grid grid-cols-2 gap-4 pt-4">
-             <div className="p-4 rounded-lg border border-border/40 bg-muted/5">
-                <h4 className="font-bold text-primary mb-1 text-sm">Integrity</h4>
-                <p className="text-xs text-muted-foreground">Clean code that scales and remains maintainable.</p>
+          <div className="grid grid-cols-2 gap-3 pt-2">
+             <div className="p-3 rounded-none border border-border/40 bg-muted/5">
+                <h4 className="font-bold text-primary mb-1 text-xs uppercase">Integrity</h4>
+                <p className="text-[10px] text-muted-foreground">Clean code that scales and remains maintainable.</p>
              </div>
-             <div className="p-4 rounded-lg border border-border/40 bg-muted/5">
-                <h4 className="font-bold text-secondary mb-1 text-sm">Interactivity</h4>
-                <p className="text-xs text-muted-foreground">Tactile digital interfaces that respond to the human touch.</p>
+             <div className="p-3 rounded-none border border-border/40 bg-muted/5">
+                <h4 className="font-bold text-secondary mb-1 text-xs uppercase">Interactivity</h4>
+                <p className="text-[10px] text-muted-foreground">Tactile digital interfaces that respond to the human touch.</p>
              </div>
           </div>
         </div>
 
-        <div className="relative aspect-square rounded-2xl overflow-hidden border border-border/40 group">
+        <div className="relative aspect-video md:aspect-auto rounded-none overflow-hidden border border-border/40 group">
             <div className="absolute inset-0 bg-gradient-to-br from-primary/20 via-transparent to-accent/20 z-0" />
             <div className="absolute inset-0 flex items-center justify-center z-10">
                 <div className="text-center space-y-2">

@@ -74,17 +74,17 @@ export function BentoGrid({ projects }: BentoGridProps) {
       {/* The Grid */}
       <motion.div 
         layout 
-        className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6"
+        className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3 sm:gap-4"
       >
         <AnimatePresence mode="popLayout">
           {filteredProjects.map((project) => (
             <motion.div
               layout
               key={project.slug}
-              initial={{ opacity: 0, scale: 0.9 }}
+              initial={{ opacity: 0, scale: 0.98 }}
               animate={{ opacity: 1, scale: 1 }}
-              exit={{ opacity: 0, scale: 0.9 }}
-              transition={{ duration: 0.3 }}
+              exit={{ opacity: 0, scale: 0.98 }}
+              transition={{ duration: 0.2 }}
               className={cn(
                 "group relative h-full",
                 // Make the first project span 2 cols if it's "all" view for visual variety, but only on sm+
@@ -92,24 +92,24 @@ export function BentoGrid({ projects }: BentoGridProps) {
               )}
             >
               <Link href={`/projects/${project.slug}`} className="block h-full">
-                <HolographicCard className="h-full">
-                    <div className="p-5 sm:p-6 h-full flex flex-col">
-                        <div className="flex justify-between items-start mb-4">
-                            <Badge variant="outline" className="bg-background/50 backdrop-blur-md uppercase tracking-widest text-[9px] sm:text-[10px] border-primary/20">
+                <HolographicCard className="h-full rounded-none border-border/40">
+                    <div className="p-4 sm:p-5 h-full flex flex-col">
+                        <div className="flex justify-between items-start mb-3">
+                            <Badge variant="outline" className="bg-background/50 backdrop-blur-md uppercase tracking-[0.2em] text-[9px] border-primary/20 rounded-none font-mono">
                                 {project.meta.category}.sys
                             </Badge>
-                            <ArrowUpRight className="w-4 h-4 sm:w-5 sm:h-5 text-muted-foreground group-hover:text-primary transition-colors" />
+                            <ArrowUpRight className="w-3.5 h-3.5 text-muted-foreground group-hover:text-primary transition-colors" />
                         </div>
                         
-                        <div className="flex-1 space-y-3 sm:space-y-4">
-                            <h3 className="text-xl sm:text-2xl font-bold tracking-tight group-hover:text-primary transition-colors">
+                        <div className="flex-1 space-y-2 sm:space-y-3">
+                            <h3 className="text-lg sm:text-xl font-black tracking-tighter uppercase italic group-hover:text-primary transition-colors leading-none">
                                 {project.meta.title}
                             </h3>
-                            <p className="text-xs sm:text-sm text-muted-foreground leading-relaxed line-clamp-2 sm:line-clamp-none">
+                            <p className="text-[11px] sm:text-[12px] text-muted-foreground leading-snug line-clamp-2">
                                 {project.meta.role}
                             </p>
                             
-                            <div className="w-full h-32 sm:h-40 rounded-lg bg-muted/20 border border-border/40 overflow-hidden relative mt-4">
+                            <div className="w-full h-24 sm:h-28 rounded-none bg-muted/10 border border-border/20 overflow-hidden relative mt-2">
                                 {project.meta.thumbnail ? (
                                     <img 
                                         src={project.meta.thumbnail} 

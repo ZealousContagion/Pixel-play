@@ -3,7 +3,7 @@
 import * as React from "react"
 import Link from "next/link"
 import { usePathname } from "next/navigation"
-import { Search, Moon, Sun, Command as CommandIcon } from "lucide-react"
+import { Search, Moon, Sun, Command as CommandIcon, Palette } from "lucide-react"
 
 import { Button } from "@/components/ui/button"
 import { Kbd } from "@/components/ui/kbd"
@@ -17,28 +17,28 @@ export function Header() {
 
   return (
     <header className="fixed top-0 z-50 w-full border-b border-border/40 bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
-      <div className="container flex h-14 max-w-screen-2xl items-center">
+      <div className="container flex h-12 max-w-screen-2xl items-center">
         <div className="mr-4 flex items-center">
           <MobileNav />
           <Link href="/" className="mr-6 hidden items-center space-x-2 md:flex group">
-            <div className="relative w-8 h-8 transition-transform duration-300 group-hover:scale-110">
+            <div className="relative w-7 h-7 transition-transform duration-300 group-hover:scale-110">
                 <img 
-                  src={theme === 'dark' ? "/logo-white.svg" : "/logo.svg"} 
+                  src={theme.includes('light') ? "/logo.svg" : "/logo-white.svg"} 
                   alt="Pixel Play Logo" 
                   className="w-full h-full object-contain" 
                 />
             </div>
-            <span className="font-bold sm:inline-block tracking-tighter uppercase text-lg">
+            <span className="font-black sm:inline-block tracking-tighter uppercase text-base italic">
               Pixel Play
             </span>
           </Link>
-          <nav className="hidden items-center space-x-6 text-sm font-medium md:flex">
+          <nav className="hidden items-center space-x-4 text-[11px] font-mono uppercase tracking-widest md:flex">
             <Link
               href="/projects"
               className={cn(
-                "transition-colors hover:text-foreground/80",
+                "transition-colors hover:text-primary",
                 pathname?.startsWith("/projects")
-                  ? "text-foreground"
+                  ? "text-primary"
                   : "text-foreground/60"
               )}
             >
@@ -47,9 +47,9 @@ export function Header() {
             <Link
               href="/about"
               className={cn(
-                "transition-colors hover:text-foreground/80",
+                "transition-colors hover:text-primary",
                 pathname === "/about"
-                  ? "text-foreground"
+                  ? "text-primary"
                   : "text-foreground/60"
               )}
             >
@@ -58,9 +58,9 @@ export function Header() {
             <Link
               href="/resume"
               className={cn(
-                "transition-colors hover:text-foreground/80",
+                "transition-colors hover:text-primary",
                 pathname === "/resume"
-                  ? "text-foreground"
+                  ? "text-primary"
                   : "text-foreground/60"
               )}
             >
@@ -69,9 +69,9 @@ export function Header() {
             <Link
               href="/contact"
               className={cn(
-                "transition-colors hover:text-foreground/80",
+                "transition-colors hover:text-primary",
                 pathname === "/contact"
-                  ? "text-foreground"
+                  ? "text-primary"
                   : "text-foreground/60"
               )}
             >
@@ -83,10 +83,10 @@ export function Header() {
           <div className="w-full flex-1 md:w-auto md:flex-none">
             <Button
               variant="outline"
-              className="relative h-8 w-full justify-start rounded-[0.5rem] bg-background text-sm font-normal text-muted-foreground shadow-none sm:pr-12 md:w-40 lg:w-64"
+              className="relative h-8 w-full justify-start rounded-none bg-background/50 text-[10px] font-mono uppercase text-muted-foreground shadow-none sm:pr-12 md:w-40 lg:w-64"
               onClick={() => setCommandPaletteOpen(true)}
             >
-              <span className="hidden lg:inline-flex">Search projects...</span>
+              <span className="hidden lg:inline-flex">Search_Archive...</span>
               <span className="inline-flex lg:hidden">Search...</span>
               <Kbd className="pointer-events-none absolute right-[0.3rem] top-[0.3rem] hidden h-5 select-none items-center gap-1 rounded border bg-muted px-1.5 font-mono text-[10px] font-medium opacity-100 sm:flex">
                 <span className="text-xs">⌘</span>K
@@ -96,12 +96,11 @@ export function Header() {
           <Button
             variant="ghost"
             size="icon"
-            onClick={() => setTheme(theme === "dark" ? "light" : "dark")}
-            className="h-8 w-8 px-0"
+            onClick={() => setCommandPaletteOpen(true)}
+            className="h-8 w-8 px-0 hover:bg-primary/10 hover:text-primary"
           >
-            <Sun className="h-[1.2rem] w-[1.2rem] rotate-0 scale-100 transition-all dark:-rotate-90 dark:scale-0" />
-            <Moon className="absolute h-[1.2rem] w-[1.2rem] rotate-90 scale-0 transition-all dark:rotate-0 dark:scale-100" />
-            <span className="sr-only">Toggle theme</span>
+            <Palette className="h-4 w-4" />
+            <span className="sr-only">Open Theme Palette</span>
           </Button>
         </div>
       </div>

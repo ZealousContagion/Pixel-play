@@ -56,7 +56,7 @@ export function HomeHero() {
   }
 
   return (
-      <section className="relative h-[85vh] w-full flex items-center justify-center overflow-hidden border-b border-border/40 bg-muted/5">
+      <section className="relative h-[70vh] w-full flex items-center justify-center overflow-hidden border-b border-border/40 bg-muted/5">
         <div className="absolute inset-0 z-0 opacity-60">
           <View className="h-full w-full">
             <React.Suspense fallback={<EngineCore />}>
@@ -70,37 +70,37 @@ export function HomeHero() {
              <div className="scanner-line opacity-20" />
         </div>
         
-        <div className="container relative z-10 flex flex-col items-center gap-6 sm:gap-8 text-center px-4">
-          <div className="space-y-3 sm:space-y-4">
-            <Badge variant="outline" className="px-3 py-0.5 sm:px-4 sm:py-1 border-primary/30 text-primary bg-primary/5 animate-pulse text-[10px] sm:text-xs">
-                v1.0.2_STABLE
+        <div className="container relative z-10 flex flex-col items-center gap-4 sm:gap-6 text-center px-4">
+          <div className="space-y-2 sm:space-y-3">
+            <Badge variant="outline" className="px-3 py-0.5 border-primary/30 text-primary bg-primary/5 animate-pulse text-[10px] sm:text-[11px] rounded-none font-mono">
+                ENGINE_BUILD_1.0.2
             </Badge>
-            <h1 className="text-4xl font-bold tracking-tighter sm:text-6xl md:text-7xl lg:text-8xl bg-clip-text text-transparent bg-gradient-to-b from-foreground to-foreground/50 leading-tight">
+            <h1 className="text-4xl font-bold tracking-tighter sm:text-6xl md:text-8xl bg-clip-text text-transparent bg-gradient-to-b from-foreground to-foreground/50 leading-[0.9] uppercase italic">
                 Creative Engine
             </h1>
-            <p className="max-w-[800px] text-muted-foreground text-base sm:text-xl md:text-2xl font-light px-2">
-                High-performance digital architecture bridging the gap between <span className="text-primary font-medium">code</span> and <span className="text-secondary font-medium">motion</span>.
+            <p className="max-w-[650px] mx-auto text-muted-foreground text-sm sm:text-lg font-medium px-2 leading-relaxed">
+                High-performance digital architecture bridging the gap between <span className="text-primary">code</span> and <span className="text-secondary">motion</span>.
             </p>
           </div>
 
-          <div className="flex flex-col sm:flex-row justify-center gap-3 sm:gap-4 w-full sm:w-auto px-4 sm:px-0">
+          <div className="flex flex-col sm:flex-row justify-center gap-3 w-full sm:w-auto px-4 sm:px-0">
             <Button 
                 size="lg" 
-                className="h-11 sm:h-12 px-6 sm:px-8 bg-primary text-primary-foreground hover:bg-primary/90 rounded-full text-sm sm:text-base font-bold shadow-lg shadow-primary/20 w-full sm:w-auto"
+                className="h-10 px-8 bg-primary text-primary-foreground hover:bg-primary/90 rounded-none text-xs font-bold shadow-lg shadow-primary/20 w-full sm:w-auto uppercase tracking-widest"
                 onClick={scrollToProjects}
             >
-              Initialize Exploration <ArrowRight className="ml-2 h-4 w-4 sm:h-5 sm:w-5" />
+              Initialize <ArrowRight className="ml-2 h-4 w-4" />
             </Button>
             
             <ContactDialog>
-                <Button variant="outline" size="lg" className="h-11 sm:h-12 px-6 sm:px-8 rounded-full border-border/60 backdrop-blur-md w-full sm:w-auto">
+                <Button variant="outline" size="lg" className="h-10 px-8 rounded-none border-border/60 backdrop-blur-md w-full sm:w-auto text-xs uppercase tracking-widest">
                 Establish Link
                 </Button>
             </ContactDialog>
           </div>
 
           {/* New Engine Dashboard Component */}
-          <div className="grid grid-cols-2 sm:grid-cols-3 gap-3 sm:gap-4 w-full max-w-3xl mt-6 sm:mt-8 pt-6 sm:pt-8 border-t border-border/20">
+          <div className="grid grid-cols-3 gap-2 w-full max-w-xl mt-4 pt-4 border-t border-border/20">
              <button 
                 onClick={() => addLog("SYSTEM_RESYNC: Latency stabilized", "sys")}
                 className="flex flex-col items-center p-3 sm:p-4 bg-background/40 backdrop-blur-md rounded-xl border border-border/40 group hover:border-primary/50 transition-all hover:scale-[1.02] active:scale-95"
