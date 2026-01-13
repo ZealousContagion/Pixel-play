@@ -13,15 +13,21 @@ import {
   SheetTitle,
   SheetTrigger,
 } from "@/components/ui/sheet"
+import { useAppStore } from "@/store"
 import { cn } from "@/lib/utils"
 
 export function MobileNav() {
   const [open, setOpen] = React.useState(false)
   const pathname = usePathname()
+  const { theme } = useAppStore()
 
   const links = [
+    { href: "/", label: "Home" },
     { href: "/projects", label: "Projects" },
+    { href: "/lab", label: "The Lab" },
+    { href: "/studio", label: "Brand Studio" },
     { href: "/about", label: "About" },
+    { href: "/resume", label: "Resume" },
     { href: "/contact", label: "Contact" },
   ]
 
@@ -32,28 +38,51 @@ export function MobileNav() {
           variant="ghost"
           className="mr-2 px-0 text-base hover:bg-transparent focus-visible:bg-transparent focus-visible:ring-0 focus-visible:ring-offset-0 md:hidden"
         >
-          <Menu className="h-6 w-6" />
+          <Menu className="h-5 w-5" />
           <span className="sr-only">Toggle Menu</span>
         </Button>
       </SheetTrigger>
-      <SheetContent side="left" className="pr-0">
-        <SheetHeader className="px-7">
-          <SheetTitle className="text-left">Pixel Play</SheetTitle>
-        </SheetHeader>
-        <div className="flex flex-col space-y-4 py-8 px-7">
-          {links.map((link) => (
-            <Link
-              key={link.href}
-              href={link.href}
-              onClick={() => setOpen(false)}
-              className={cn(
-                "text-lg font-medium transition-colors hover:text-primary",
-                pathname === link.href ? "text-primary" : "text-muted-foreground"
-              )}
-            >
-              {link.label}
+      <SheetContent side="left" className="bg-background/95 backdrop-blur-xl border-r border-border/40 p-0 w-[300px]">
+        <div className="flex flex-col h-full">
+          <div className="p-6 border-b border-border/20">
+            <Link href="/" onClick={() => setOpen(false)} className="flex items-center gap-2 group">
+              <div className="w-8 h-8 rounded-none border border-primary/20 flex items-center justify-center bg-primary/5">
+                <img 
+                  src={theme === 'light' ? "/logo.svg" : "/logo-white.svg"} 
+                  alt="Logo" 
+                  className="w-5 h-5 object-contain" 
+                />
+              </div>
+              <span className="font-black tracking-tighter uppercase italic text-lg">Pixel Play</span>
             </Link>
-          ))}
+          </div>
+          
+          <div className="flex-1 overflow-y-auto py-6">
+            <nav className="flex flex-col px-6 space-y-1">
+              {links.map((link) => (
+                <Link
+                  key={link.href}
+                  href={link.href}
+                  onClick={() => setOpen(false)}
+                  className={cn(
+                    "flex items-center h-12 px-4 text-[11px] font-mono uppercase tracking-[0.2em] transition-all border border-transparent",
+                    pathname === link.href 
+                      ? "bg-primary/10 border-primary/20 text-primary font-bold" 
+                      : "text-muted-foreground hover:bg-muted hover:text-foreground"
+                  )}
+                >
+                  {link.label}
+                </Link>
+              ))}
+            </nav>
+          </div>
+
+          <div className="p-6 border-t border-border/20 bg-muted/5">
+            <p className="text-[9px] font-mono text-muted-foreground uppercase tracking-widest leading-relaxed">
+              Engine_Mobile_Terminal <br />
+              Authorized_Access_Only
+            </p>
+          </div>
         </div>
       </SheetContent>
     </Sheet>
