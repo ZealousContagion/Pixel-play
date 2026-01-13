@@ -47,6 +47,17 @@ export function Header() {
               Projects
             </Link>
             <Link
+              href="/lab"
+              className={cn(
+                "transition-colors hover:text-primary",
+                pathname === "/lab"
+                  ? "text-primary"
+                  : "text-foreground/60"
+              )}
+            >
+              Lab
+            </Link>
+            <Link
               href="/about"
               className={cn(
                 "transition-colors hover:text-primary",

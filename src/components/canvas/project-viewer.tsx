@@ -1,18 +1,40 @@
 "use client"
 
-import { useRef } from "react"
+import { useRef, Suspense, useMemo } from "react"
 import { useFrame } from "@react-three/fiber"
-import { Box, PerspectiveCamera, Environment, ContactShadows } from "@react-three/drei"
+import { PerspectiveCamera, Environment, ContactShadows, useGLTF, Float, Center } from "@react-three/drei"
 import * as THREE from "three"
 import { useAppStore } from "@/store"
 
+function Model({ url, blueprint }: { url: string, blueprint: boolean }) {
+  const { scene } = useGLTF(url)
+  
+  // Apply theme-aware materials if in blueprint mode
+  useMemo(() => {
+    scene.traverse((obj) => {
+      if (obj instanceof THREE.Mesh) {
+        if (blueprint) {
+          obj.material = new THREE.MeshStandardMaterial({
+            color: "#3cb4e7",
+            wireframe: true,
+            transparent: true,
+            opacity: 0.6
+          })
+        }
+      }
+    })
+  }, [scene, blueprint])
+
+  return <primitive object={scene} />
+}
+
 export function ProjectViewer({ model }: { model?: string }) {
-  const meshRef = useRef<THREE.Mesh>(null)
+  const groupRef = useRef<THREE.Group>(null)
   const { blueprintMode } = useAppStore()
 
   useFrame((state, delta) => {
-    if (!meshRef.current) return
-    meshRef.current.rotation.y += delta * 0.5
+    if (!groupRef.current) return
+    groupRef.current.rotation.y += delta * 0.2
   })
 
   return (
@@ -22,30 +44,19 @@ export function ProjectViewer({ model }: { model?: string }) {
       <spotLight position={[10, 10, 10]} angle={0.15} penumbra={1} intensity={1} castShadow />
       
       <group position={[0, -0.5, 0]}>
-        {/* Placeholder if no model provided */}
-        {!model && (
-            <group ref={meshRef}>
-                <mesh>
-                    <sphereGeometry args={[2, 32, 32]} />
-                    <meshStandardMaterial 
-                        color={blueprintMode ? "#3cb4e7" : "hotpink"} 
-                        roughness={0.1} 
-                        metalness={0.5} 
-                        wireframe
-                    />
-                </mesh>
-                <points>
-                    <sphereGeometry args={[2, 32, 32]} />
-                    <pointsMaterial 
-                        color={blueprintMode ? "#3cb4e7" : "#f5f5f5"} 
-                        size={0.05} 
-                        sizeAttenuation 
-                    />
-                </points>
-            </group>
-        )}
-        
-        {/* TODO: Implement actual model loading if model prop is provided */}
+        <Float speed={2} rotationIntensity={0.5} floatIntensity={0.5}>
+            <Center top>
+                <group ref={groupRef}>
+                    {model ? (
+                        <Suspense fallback={<PlaceholderMesh blueprint={blueprintMode} />}>
+                            <Model url={model} blueprint={blueprintMode} />
+                        </Suspense>
+                    ) : (
+                        <PlaceholderMesh blueprint={blueprintMode} />
+                    )}
+                </group>
+            </Center>
+        </Float>
         
         {!blueprintMode && <ContactShadows resolution={1024} scale={10} blur={2.5} opacity={0.5} far={1} />}
         {blueprintMode && <gridHelper args={[10, 10, "#3cb4e7", "#0f1b4c"]} position={[0, -1, 0]} />}
@@ -54,4 +65,28 @@ export function ProjectViewer({ model }: { model?: string }) {
       {!blueprintMode && <Environment preset="city" />}
     </>
   )
+}
+
+function PlaceholderMesh({ blueprint }: { blueprint: boolean }) {
+    return (
+        <group>
+            <mesh>
+                <sphereGeometry args={[1.5, 32, 32]} />
+                <meshStandardMaterial 
+                    color={blueprint ? "#3cb4e7" : "hotpink"} 
+                    roughness={0.1} 
+                    metalness={0.5} 
+                    wireframe
+                />
+            </mesh>
+            <points>
+                <sphereGeometry args={[1.5, 32, 32]} />
+                <pointsMaterial 
+                    color={blueprint ? "#3cb4e7" : "#f5f5f5"} 
+                    size={0.05} 
+                    sizeAttenuation 
+                />
+            </points>
+        </group>
+    )
 }
