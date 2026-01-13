@@ -18,7 +18,8 @@ export function CreativeConsole() {
     setTheme,
     setQuality,
     setBlueprintMode,
-    blueprintMode
+    blueprintMode,
+    setChatOpen
   } = useAppStore()
   const router = useRouter()
   const [command, setCommand] = React.useState("")
@@ -42,87 +43,46 @@ export function CreativeConsole() {
     addLog(`$ ${fullCommand}`, 'info')
 
     switch (cmd) {
-      case 'help':
-        addLog('NAVIGATION: cd [path], ls', 'sys')
-        addLog('SYSTEM: clear, theme [light|dark], quality [low|med|high], blueprint [on|off]', 'sys')
-        addLog('INFO: about, status, whoami', 'sys')
+      case 'chat':
+        setChatOpen(true)
+        addLog('AI_SUBSYSTEM: Initializing interface...', 'sys')
         break
 
-      case 'ls':
-        addLog('DIRECTORY: /projects', 'info')
-        addLog('  - neon-horizon', 'info')
-        addLog('  - quantum-analytics', 'info')
-        addLog('  - aerolab-identity', 'info')
-        addLog('  - cyber-runner', 'info')
-        break
-
-      case 'cd':
-        const path = args[0]
-        if (!path || path === '~' || path === '/') {
-          router.push('/')
-          addLog('Navigating to root...', 'sys')
-        } else if (path === 'projects') {
-          router.push('/projects')
-          addLog('Navigating to /projects...', 'sys')
-        } else if (path.startsWith('projects/')) {
-          const slug = path.split('/')[1]
-          router.push(`/projects/${slug}`)
-          addLog(`Initializing workspace: ${slug}`, 'sys')
-        } else if (path === 'about') {
-          router.push('/about')
-          addLog('Accessing engineer profile...', 'sys')
-        } else if (path === 'contact') {
-          router.push('/contact')
-          addLog('Establishing communication link...', 'sys')
-        } else {
-          addLog(`Directory not found: ${path}`, 'error')
-        }
+      case 'logs':
+        addLog(`LOG_TOTAL: ${logs.length}`, 'info')
+        addLog(`SYSTEM_UPTIME: ${Math.floor(performance.now() / 1000)}s`, 'info')
         break
 
       case 'clear':
         clearLogs()
+        addLog('LOG_BUFFER_PURGED', 'sys')
         break
 
       case 'theme':
-        if (args[0] === 'light' || args[0] === 'dark') {
+        if (args[0]) {
           setTheme(args[0])
-          addLog(`Theme set to: ${args[0]}`, 'sys')
+          addLog(`THEME_UPDATED: ${args[0]}`, 'sys')
         } else {
-          addLog('Usage: theme [light|dark]', 'warn')
-        }
-        break
-
-      case 'quality':
-        const q = args[0]?.toLowerCase()
-        if (q === 'low' || q === 'medium' || q === 'high') {
-          setQuality(q as any)
-          addLog(`Rendering quality set to: ${q}`, 'sys')
-        } else {
-          addLog('Usage: quality [low|medium|high]', 'warn')
-        }
-        break
-
-      case 'blueprint':
-        if (args[0] === 'on' || args[0] === 'off') {
-          setBlueprintMode(args[0] === 'on')
-          addLog(`Blueprint mode: ${args[0].toUpperCase()}`, 'sys')
-        } else {
-          addLog('Usage: blueprint [on|off]', 'warn')
+          addLog('Usage: theme [theme-id]. See Command Menu (Cmd+K) for list.', 'warn')
         }
         break
 
       case 'status':
         addLog('CORE_V1.0.2: ONLINE', 'sys')
+        addLog(`RESOLUTION: ${window.innerWidth}x${window.innerHeight}`, 'info')
         addLog('3D_ENGINE: R3F_RAPIDER_POST', 'sys')
         addLog('AI_LAYER: GPT-4o_CONNECTED', 'sys')
         break
 
       case 'whoami':
         addLog('GUEST_USER@PIXEL_PLAY', 'info')
+        addLog('PERMISSIONS: READ_ONLY', 'warn')
         break
 
-      case 'about':
-        addLog('Pixel Play: A High-Performance Creative Engine built by a Senior Engineer.', 'sys')
+      case 'help':
+        addLog('NAVIGATION: cd [projects|about|contact|~]', 'sys')
+        addLog('SYSTEM: clear, logs, chat, theme [id], status', 'sys')
+        addLog('RENDER: quality [low|med|high], blueprint [on|off]', 'sys')
         break
 
       default:
