@@ -15,6 +15,7 @@ import {
   Terminal,
   MessageSquare,
   Zap,
+  Cpu,
 } from "lucide-react"
 
 import {
