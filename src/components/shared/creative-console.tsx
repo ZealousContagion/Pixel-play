@@ -59,11 +59,11 @@ export function CreativeConsole() {
         break
 
       case 'theme':
-        if (args[0]) {
-          setTheme(args[0])
+        if (args[0] === 'light' || args[0] === 'dark') {
+          setTheme(args[0] as 'light' | 'dark')
           addLog(`THEME_UPDATED: ${args[0]}`, 'sys')
         } else {
-          addLog('Usage: theme [theme-id]. See Command Menu (Cmd+K) for list.', 'warn')
+          addLog('Usage: theme [light|dark]', 'warn')
         }
         break
 

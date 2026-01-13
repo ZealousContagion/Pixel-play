@@ -16,6 +16,7 @@ import {
     Save, 
     Layout, 
     Smartphone, 
+    Monitor,
     Layers,
     Download,
     Eye,
