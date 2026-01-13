@@ -41,7 +41,9 @@ export function CommandMenu() {
     terminalOpen,
     setTerminalOpen,
     setPerformanceMode,
-    performanceMode
+    performanceMode,
+    setDebugMode,
+    debugMode
   } = useAppStore()
 
   useKeyboard([
@@ -64,6 +66,12 @@ export function CommandMenu() {
       ctrlKey: true,
       shiftKey: true,
       callback: () => setTerminalOpen(!terminalOpen),
+    },
+    {
+      key: "d",
+      ctrlKey: true,
+      shiftKey: true,
+      callback: () => setDebugMode(!debugMode),
     }
   ])
 
@@ -97,6 +105,11 @@ export function CommandMenu() {
             <Terminal className="mr-2 h-4 w-4" />
             <span>Toggle Engine Terminal</span>
             <CommandShortcut>`</CommandShortcut>
+          </CommandItem>
+          <CommandItem onSelect={() => runCommand(() => setDebugMode(!debugMode))}>
+            <Cpu className="mr-2 h-4 w-4" />
+            <span>Toggle Engineering Mode</span>
+            <CommandShortcut>⌃⇧D</CommandShortcut>
           </CommandItem>
         </CommandGroup>
         <CommandSeparator />

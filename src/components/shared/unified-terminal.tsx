@@ -18,8 +18,7 @@ import {
 import { useAppStore } from "@/store"
 import { cn } from "@/lib/utils"
 import { Button } from "@/components/ui/button"
-import { useRouter } from "next/navigation"
-
+import { useRouter, usePathname } from "next/navigation"
 import { useSound } from "@/hooks/use-sound"
 
 export function UnifiedTerminal() {
@@ -34,11 +33,14 @@ export function UnifiedTerminal() {
     setTheme,
     theme,
     blueprintMode,
-    setBlueprintMode
+    setBlueprintMode,
+    debugMode,
+    setDebugMode
   } = useAppStore()
   
   const { playSound } = useSound()
   const router = useRouter()
+  const pathname = usePathname()
   const [input, setInput] = React.useState("")
   const [isExpanded, setIsExpanded] = React.useState(false)
   const scrollRef = React.useRef<HTMLDivElement>(null)
@@ -68,8 +70,15 @@ export function UnifiedTerminal() {
     switch (cmd) {
       case 'help':
         addLog('NAV: cd [projects|studio|lab|about|~]', 'sys')
-        addLog('SYS: clear, theme [light|dark], blueprint [on|off]', 'sys')
-        addLog('MODE: ai, status', 'sys')
+        addLog('SYS: clear, theme [light|dark], debug [on|off]', 'sys')
+        addLog('RENDER: blueprint [on|off], status', 'sys')
+        break
+      case 'debug':
+        if (args[0] === 'on' || args[0] === 'off') {
+            setDebugMode(args[0] === 'on')
+            addLog(`ENGINEERING_MODE: ${args[0].toUpperCase()}`, 'sys')
+            playSound('success', 0.2)
+        }
         break
       case 'ai':
         setTerminalMode('ai')
@@ -135,7 +144,7 @@ export function UnifiedTerminal() {
         setTerminalMode('ai')
         addLog(`USER_PROMPT: ${val.substring(0, 20)}...`, 'info')
         playSound('terminal', 0.1)
-        await append({ role: 'user', content: val })
+        await append({ role: 'user', content: val }, { data: { context: pathname } })
     }
   }
 

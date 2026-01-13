@@ -57,6 +57,10 @@ interface AppState {
     // Audio System
     soundEnabled: boolean;
     setSoundEnabled: (enabled: boolean) => void;
+
+    // Engineering Mode
+    debugMode: boolean;
+    setDebugMode: (enabled: boolean) => void;
 }
 
 export const useAppStore = create<AppState>()(
@@ -64,7 +68,7 @@ export const useAppStore = create<AppState>()(
         (set) => ({
             // ... existing state ...
             theme: 'dark',
-            // ... (keep previous simplified theme logic)
+            // ... (rest of implementation)
             setTheme: (theme) => {
                 const doc = document.documentElement;
                 doc.classList.toggle('dark', theme === 'dark');
@@ -135,6 +139,13 @@ export const useAppStore = create<AppState>()(
             // Audio System
             soundEnabled: true,
             setSoundEnabled: (soundEnabled) => set({ soundEnabled }),
+
+            // Engineering Mode
+            debugMode: false,
+            setDebugMode: (debugMode) => {
+                document.documentElement.classList.toggle('debug-mode', debugMode);
+                set({ debugMode });
+            },
         }),
         {
             name: 'pixel-play-storage',

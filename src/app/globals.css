@@ -102,4 +102,21 @@
     background: rgba(0, 0, 0, 0.2);
     border: 1px solid rgba(255, 255, 255, 0.1);
   }
+
+  /* Engineering Debug Mode */
+  .debug-mode * {
+    outline: 1px solid hsl(var(--primary) / 0.2) !important;
+  }
+  
+  .debug-mode .container {
+    background-image: 
+      linear-gradient(to right, hsl(var(--primary) / 0.05) 1px, transparent 1px),
+      linear-gradient(to bottom, hsl(var(--primary) / 0.05) 1px, transparent 1px);
+    background-size: 20px 20px;
+    outline: 2px dashed hsl(var(--primary) / 0.3) !important;
+  }
+
+  .debug-mode img {
+    filter: grayscale(1) contrast(1.2) opacity(0.5);
+  }
 }

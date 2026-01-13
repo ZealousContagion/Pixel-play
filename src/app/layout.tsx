@@ -10,6 +10,7 @@ import { SceneLayout } from "@/components/canvas/scene-layout";
 import { UnifiedTerminal } from "@/components/shared/unified-terminal";
 import { ThemeSync } from "@/components/shared/theme-sync";
 import { GlobalLoader } from "@/components/shared/global-loader";
+import { DebugOverlay } from "@/components/shared/debug-overlay";
 import EngineLoading from "@/components/shared/engine-loading";
 import { Suspense } from "react";
 
@@ -70,6 +71,7 @@ export default function RootLayout({
                 <GlobalPlayhead />
                 <CommandMenu />
                 <UnifiedTerminal />
+                <DebugOverlay />
                 <Toaster />
             </body>
         </html>
