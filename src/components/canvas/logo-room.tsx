@@ -51,7 +51,7 @@ export function LogoRoom() {
       <mesh rotation-x={-Math.PI / 2} position={[0, -2, 0]}>
         <planeGeometry args={[20, 20]} />
         <meshStandardMaterial color={brand.colors.background} opacity={0.5} transparent />
-      </Center>
+      </mesh>
 
       <Environment preset="city" />
     </>
