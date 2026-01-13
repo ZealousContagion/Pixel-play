@@ -6,6 +6,7 @@ import { Badge } from "@/components/ui/badge"
 import { HolographicCard } from "@/components/ui/holographic-card"
 import { Terminal, Zap, Cpu, Beaker, Monitor, Activity, ShieldCheck } from "lucide-react"
 import { GLBInspector } from "@/components/lab/glb-inspector"
+import { PixelGrid } from "@/components/lab/pixel-grid"
 import { useAppStore } from "@/store"
 
 const View = dynamic(() => import("@react-three/drei").then((mod) => mod.View), {
@@ -95,6 +96,10 @@ export default function LabPage() {
             <HolographicCard className="rounded-none h-[250px]">
                 <GLBInspector onModelLoad={(url) => setCustomModel(url)} />
             </HolographicCard>
+
+            <div className="p-6 border border-border/40 bg-muted/5 space-y-6">
+                <PixelGrid />
+            </div>
 
             <div className="p-6 border border-border/40 bg-muted/5 space-y-6">
                 <div className="space-y-2">

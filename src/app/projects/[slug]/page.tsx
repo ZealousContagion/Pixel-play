@@ -1,31 +1,44 @@
-import { notFound } from "next/navigation"
-import { getProjectBySlug, getAllProjects } from "@/lib/mdx"
+"use client"
+
+import { notFound, useParams } from "next/navigation"
+import React, { useEffect, useState, useRef } from "react"
+import { getProjectBySlug } from "@/lib/mdx"
 import { SplitPane } from "@/components/projects/split-pane"
 import { ViewportRenderer } from "@/components/projects/viewport-renderer"
 import { Badge } from "@/components/ui/badge"
 import { ProjectControls } from "@/components/projects/project-controls"
 
-export async function generateStaticParams() {
-  const projects = await getAllProjects()
-  return projects.map((project) => ({
-    slug: project.slug,
-  }))
-}
+export default function ProjectPage() {
+  const params = useParams()
+  const slug = params.slug as string
+  const [project, setProject] = useState<any>(null)
+  const [scrollProgress, setScrollProgress] = useState(0)
+  const contentRef = useRef<HTMLDivElement>(null)
 
-export default async function ProjectPage({ params }: { params: Promise<{ slug: string }> }) {
-  const { slug } = await params
-  const project = await getProjectBySlug(slug)
+  useEffect(() => {
+    getProjectBySlug(slug).then(data => {
+        if (data) setProject(data)
+        else notFound()
+    })
+  }, [slug])
 
-  if (!project) {
-    notFound()
+  const handleScroll = (e: React.UIEvent<HTMLDivElement>) => {
+    const target = e.currentTarget
+    const progress = target.scrollTop / (target.scrollHeight - target.clientHeight)
+    setScrollProgress(progress)
   }
+
+  if (!project) return null
 
   return (
     <div className="h-[calc(100vh-3.5rem)] overflow-hidden">
       <SplitPane>
         <div className="flex flex-col h-full">
             <ProjectControls />
-            <div className="flex-1 p-6 sm:p-8 pb-20 overflow-y-auto custom-scrollbar">
+            <div 
+                className="flex-1 p-6 sm:p-8 pb-20 overflow-y-auto custom-scrollbar"
+                onScroll={handleScroll}
+            >
                 <div className="mb-8 space-y-6">
                     <div className="space-y-2">
                         <Badge variant="outline" className="text-primary border-primary/20 uppercase tracking-widest text-[10px]">
@@ -40,7 +53,7 @@ export default async function ProjectPage({ params }: { params: Promise<{ slug: 
                     </div>
 
                     <div className="flex flex-wrap gap-2">
-                        {project.meta.tools.map((tool) => (
+                        {project.meta.tools.map((tool: string) => (
                             <Badge key={tool} variant="secondary" className="bg-secondary/50 backdrop-blur-sm text-[11px]">
                                 {tool}
                             </Badge>
@@ -49,7 +62,7 @@ export default async function ProjectPage({ params }: { params: Promise<{ slug: 
 
                     {project.meta.metrics && project.meta.metrics.length > 0 && (
                         <div className="grid grid-cols-2 gap-4 py-6 border-y border-border/40">
-                            {project.meta.metrics.map((metric) => (
+                            {project.meta.metrics.map((metric: any) => (
                                 <div key={metric.label} className="space-y-1">
                                     <p className="text-[10px] uppercase tracking-widest text-muted-foreground font-mono">
                                         {metric.label}
@@ -73,6 +86,7 @@ export default async function ProjectPage({ params }: { params: Promise<{ slug: 
             type={project.meta.viewport.type} 
             src={project.meta.viewport.src} 
             model={project.meta.viewport.model} 
+            scrollProgress={scrollProgress}
         />
       </SplitPane>
     </div>

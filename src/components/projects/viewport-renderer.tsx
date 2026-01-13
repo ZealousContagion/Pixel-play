@@ -19,9 +19,10 @@ interface ViewportRendererProps {
   type: 'iframe' | 'canvas' | 'webgl'
   src?: string
   model?: string
+  scrollProgress?: number
 }
 
-export function ViewportRenderer({ type, src, model }: ViewportRendererProps) {
+export function ViewportRenderer({ type, src, model, scrollProgress = 0 }: ViewportRendererProps) {
   if (type === 'iframe' && src) {
     return (
       <iframe 
@@ -37,7 +38,7 @@ export function ViewportRenderer({ type, src, model }: ViewportRendererProps) {
     return (
       <View className="h-full w-full">
          <React.Suspense fallback={<EngineCore />}>
-            <ProjectViewer model={model} />
+            <ProjectViewer model={model} scrollProgress={scrollProgress} />
          </React.Suspense>
       </View>
     )

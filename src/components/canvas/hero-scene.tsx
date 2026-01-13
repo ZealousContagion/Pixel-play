@@ -6,12 +6,13 @@ import * as THREE from "three"
 import { useAppStore } from "@/store"
 
 export function HeroScene() {
-  const { performanceMode, theme } = useAppStore()
+  const { performanceMode, theme, debugMode } = useAppStore()
   const count = performanceMode === 'turbo' ? 1500 : 500
   const groupRef = useRef<THREE.Group>(null)
   const { viewport } = useThree()
   
   const themeColors = useMemo(() => {
+    // ... (logic remains same)
     if (typeof window === 'undefined') return { primary: '#3cb4e7', secondary: '#ffc423', accent: '#b54d50', muted: '#808080' }
     
     const getHex = (varName: string) => {
@@ -33,6 +34,7 @@ export function HeroScene() {
     }
   }, [theme])
 
+  // ... (particle generation logic)
   const createParticles = (scale: number, pCount: number) => {
     const temp = new Float32Array(pCount * 3)
     for (let i = 0; i < pCount; i++) {
@@ -70,6 +72,13 @@ export function HeroScene() {
       <Points positions={particlesYellow} color={themeColors.secondary} size={0.06} opacity={0.5} />
       <Points positions={particlesRed} color={themeColors.accent} size={0.07} opacity={0.4} />
       <Points positions={particlesNavy} color={themeColors.muted} size={0.1} opacity={0.3} />
+      
+      {debugMode && (
+        <mesh>
+            <sphereGeometry args={[15, 32, 32]} />
+            <meshBasicMaterial color={themeColors.primary} wireframe transparent opacity={0.1} />
+        </mesh>
+      )}
     </group>
   )
 }

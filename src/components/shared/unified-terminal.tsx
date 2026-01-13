@@ -116,7 +116,6 @@ export function UnifiedTerminal() {
         try {
             playSound('click', 0.5)
             addLog('AUDIO_SIGNAL: Click_Pulse dispatched.', 'sys')
-            addLog('NOTE: If no sound, verify "public/sounds/click.mp3" exists.', 'warn')
         } catch (e) {
             addLog('AUDIO_ERROR: Hardware interface failed.', 'error')
         }
@@ -134,8 +133,7 @@ export function UnifiedTerminal() {
     const val = input.trim()
     setInput("")
 
-    // Simple routing logic: if it starts with / or is a known command, treat as command
-    const isCommand = val.startsWith('/') || ['help', 'clear', 'cd', 'theme', 'status', 'ls', 'ai', 'sys', 'blueprint'].includes(val.split(' ')[0].toLowerCase())
+    const isCommand = val.startsWith('/') || ['help', 'clear', 'cd', 'theme', 'status', 'ls', 'ai', 'sys', 'blueprint', 'debug'].includes(val.split(' ')[0].toLowerCase())
 
     if (isCommand) {
         setTerminalMode('sys')
@@ -163,7 +161,6 @@ export function UnifiedTerminal() {
         exit={{ opacity: 0, y: 20, scale: 0.95 }}
         className="w-full h-full glass rounded-none border border-primary/20 shadow-2xl overflow-hidden flex flex-col"
       >
-        {/* Glass Header */}
         <div className="flex items-center justify-between px-4 py-3 border-b border-primary/10 bg-primary/5 backdrop-blur-md">
           <div className="flex items-center gap-3">
             <div className={cn(
@@ -173,15 +170,10 @@ export function UnifiedTerminal() {
                 {terminalMode === 'ai' ? <Sparkles className="w-3.5 h-3.5" /> : <Terminal className="w-3.5 h-3.5" />}
             </div>
             <div className="flex flex-col">
-                <span className="text-[10px] font-mono font-black uppercase tracking-widest leading-none">
-                    Engine_Terminal
-                </span>
-                <span className="text-[8px] font-mono text-muted-foreground uppercase tracking-tighter">
-                    v2.0.4 // {terminalMode === 'ai' ? 'Neural_Link' : 'System_Kernel'}
-                </span>
+                <span className="text-[10px] font-mono font-black uppercase tracking-widest leading-none">Engine_Terminal</span>
+                <span className="text-[8px] font-mono text-muted-foreground uppercase tracking-tighter">v2.0.4 // {terminalMode === 'ai' ? 'Neural_Link' : 'System_Kernel'}</span>
             </div>
           </div>
-          
           <div className="flex items-center gap-1">
             <Button variant="ghost" size="icon" className="h-7 w-7 text-muted-foreground" onClick={() => setIsExpanded(!isExpanded)}>
                 {isExpanded ? <Minimize2 className="w-3 h-3" /> : <Maximize2 className="w-3 h-3" />}
@@ -192,64 +184,50 @@ export function UnifiedTerminal() {
           </div>
         </div>
 
-        {/* Unified Feed */}
-        <div 
-          ref={scrollRef}
-          className="flex-1 overflow-y-auto p-4 font-mono text-[11px] space-y-4 custom-scrollbar bg-background/20"
-        >
-          {terminalMode === 'sys' ? (
-            <div className="space-y-1.5">
-                {logs.map((log) => (
-                    <div key={log.id} className="flex gap-2 leading-relaxed animate-in fade-in slide-in-from-left-1 duration-300">
-                        <span className="text-primary/30 shrink-0 select-none">[{log.timestamp}]</span>
-                        <span className={cn(
-                            "break-all",
-                            log.type === 'sys' && "text-secondary font-bold",
-                            log.type === 'error' && "text-accent",
-                            log.type === 'warn' && "text-yellow-500",
-                            log.type === 'info' && "text-foreground/80"
-                        )}>
-                            {log.message}
-                        </span>
-                    </div>
-                ))}
-            </div>
-          ) : (
-            <div className="space-y-6">
-                {messages.length === 0 && (
-                    <div className="text-center py-12 space-y-4 opacity-40">
-                        <Bot className="w-8 h-8 mx-auto" />
-                        <p className="uppercase tracking-widest text-[9px]">Neural connection established. Awaiting user parameters.</p>
-                    </div>
-                )}
-                {messages.map((m: any) => (
-                    <div key={m.id} className={cn("flex flex-col gap-2", m.role === 'user' ? "items-end" : "items-start")}>
-                        <div className="flex items-center gap-2">
-                            <span className="text-[8px] uppercase tracking-widest text-muted-foreground font-black">
-                                {m.role === 'user' ? 'USER_ID_01' : 'AI_ENTITY_CORE'}
-                            </span>
+        <div ref={scrollRef} className="flex-1 overflow-y-auto p-4 font-mono text-[11px] space-y-4 custom-scrollbar bg-background/20 relative">
+          <div className="absolute inset-0 pointer-events-none z-10 opacity-[0.03] bg-[linear-gradient(rgba(18,16,16,0)_50%,rgba(0,0,0,0.25)_50%),linear-gradient(90deg,rgba(255,0,0,0.06),rgba(0,255,0,0.02),rgba(0,0,255,0.06))] bg-[size:100%_2px,3px_100%]" />
+          
+          <div className="relative z-0">
+            {terminalMode === 'sys' ? (
+                <div className="space-y-1.5">
+                    {logs.map((log) => (
+                        <div key={log.id} className="flex gap-2 leading-relaxed animate-in fade-in slide-in-from-left-1 duration-300">
+                            <span className="text-primary/30 shrink-0 select-none">[{log.timestamp}]</span>
+                            <span className={cn(
+                                "break-all",
+                                log.type === 'sys' && "text-secondary font-bold",
+                                log.type === 'error' && "text-accent",
+                                log.type === 'warn' && "text-yellow-500",
+                                log.type === 'info' && "text-foreground/80"
+                            )}>{log.message}</span>
                         </div>
-                        <div className={cn(
-                            "px-3 py-2 border max-w-[90%] transition-colors duration-500",
-                            m.role === 'user' 
-                                ? "bg-primary/10 border-primary/20 text-primary italic" 
-                                : "bg-muted/30 border-border/40 text-foreground"
-                        )}>
-                            {m.content}
+                    ))}
+                </div>
+            ) : (
+                <div className="space-y-6">
+                    {messages.length === 0 && (
+                        <div className="text-center py-12 space-y-4 opacity-40">
+                            <Bot className="w-8 h-8 mx-auto" />
+                            <p className="uppercase tracking-widest text-[9px]">Neural connection established. Awaiting user parameters.</p>
                         </div>
-                    </div>
-                ))}
-                {isLoading && (
-                    <div className="flex gap-2 items-center text-primary animate-pulse">
-                        <ChevronRight className="w-3 h-3" />
-                        <span className="text-[9px] uppercase tracking-widest font-black">Synthesizing_Response...</span>
-                    </div>
-                )}
-            </div>
-          )}
+                    )}
+                    {messages.map((m: any) => (
+                        <div key={m.id} className={cn("flex flex-col gap-2", m.role === 'user' ? "items-end" : "items-start")}>
+                            <span className="text-[8px] uppercase tracking-widest text-muted-foreground font-black">{m.role === 'user' ? 'USER_ID_01' : 'AI_ENTITY_CORE'}</span>
+                            <div className={cn("px-3 py-2 border max-w-[90%] transition-colors duration-500", m.role === 'user' ? "bg-primary/10 border-primary/20 text-primary italic" : "bg-muted/30 border-border/40 text-foreground")}>{m.content}</div>
+                        </div>
+                    ))}
+                    {isLoading && (
+                        <div className="flex gap-2 items-center text-primary animate-pulse">
+                            <ChevronRight className="w-3 h-3" />
+                            <span className="text-[9px] uppercase tracking-widest font-black">Synthesizing_Response...</span>
+                        </div>
+                    )}
+                </div>
+            )}
+          </div>
         </div>
 
-        {/* Interaction Bar */}
         <div className="p-3 border-t border-primary/10 bg-primary/5 backdrop-blur-md">
           <form onSubmit={onSubmit} className="flex items-center gap-3 px-2">
             <div className="text-primary animate-pulse shrink-0">
@@ -262,33 +240,13 @@ export function UnifiedTerminal() {
               value={input}
               onChange={(e) => setInput(e.target.value)}
             />
-            <div className="flex items-center gap-2">
-                <span className="text-[8px] font-mono text-muted-foreground hidden sm:block uppercase tracking-tighter">Enter_to_Send</span>
-                <Button type="submit" size="icon" className="h-7 w-7 rounded-none bg-primary text-primary-foreground shadow-lg hover:shadow-primary/20">
-                    <Send className="w-3 h-3" />
-                </Button>
-            </div>
+            <Button type="submit" size="icon" className="h-7 w-7 rounded-none bg-primary text-primary-foreground">
+                <Send className="w-3 h-3" />
+            </Button>
           </form>
-          
-          {/* Quick Actions for non-tech users */}
           <div className="mt-2 flex gap-2 overflow-x-auto pb-1 no-scrollbar">
-            {[
-                { label: 'STATUS', cmd: '/status', mode: 'sys' },
-                { label: 'ABOUT', cmd: 'Tell me about the engineer', mode: 'ai' },
-                { label: 'PROJECTS', cmd: '/cd projects', mode: 'sys' },
-                { label: 'HELP', cmd: '/help', mode: 'sys' }
-            ].map(act => (
-                <button 
-                    key={act.label}
-                    type="button"
-                    onClick={() => {
-                        setInput(act.cmd)
-                        // Trigger immediate if non-ai
-                    }}
-                    className="shrink-0 px-2 py-1 border border-border/40 bg-background/40 text-[8px] font-mono uppercase tracking-widest hover:border-primary/60 hover:text-primary transition-all"
-                >
-                    {act.label}
-                </button>
+            {[{ label: 'STATUS', cmd: '/status' }, { label: 'PROJECTS', cmd: '/cd projects' }, { label: 'LAB', cmd: '/cd lab' }, { label: 'HELP', cmd: '/help' }].map(act => (
+                <button key={act.label} type="button" onClick={() => { setInput(act.cmd) }} className="shrink-0 px-2 py-1 border border-border/40 bg-background/40 text-[8px] font-mono uppercase tracking-widest hover:border-primary/60 hover:text-primary transition-all">{act.label}</button>
             ))}
           </div>
         </div>

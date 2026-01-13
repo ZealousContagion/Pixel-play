@@ -28,13 +28,19 @@ function Model({ url, blueprint }: { url: string, blueprint: boolean }) {
   return <primitive object={scene} />
 }
 
-export function ProjectViewer({ model }: { model?: string }) {
+export function ProjectViewer({ model, scrollProgress = 0 }: { model?: string, scrollProgress?: number }) {
   const groupRef = useRef<THREE.Group>(null)
   const { blueprintMode } = useAppStore()
 
   useFrame((state, delta) => {
     if (!groupRef.current) return
-    groupRef.current.rotation.y += delta * 0.2
+    // Constant rotation + scroll-based rotation
+    groupRef.current.rotation.y += delta * 0.1 + (scrollProgress * 0.05)
+    groupRef.current.rotation.x = THREE.MathUtils.lerp(groupRef.current.rotation.x, scrollProgress * Math.PI, 0.1)
+    
+    // Slight zoom effect on scroll
+    const scale = 1 + scrollProgress * 0.5
+    groupRef.current.scale.setScalar(scale)
   })
 
   return (

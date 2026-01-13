@@ -16,6 +16,7 @@ import {
   MessageSquare,
   Zap,
   Cpu,
+  Search as SearchIcon,
 } from "lucide-react"
 
 import {
@@ -34,6 +35,7 @@ import { cn } from "@/lib/utils"
 
 export function CommandMenu() {
   const router = useRouter()
+  const [projects, setProjects] = React.useState<{slug: string, title: string}[]>([])
   const { 
     commandPaletteOpen, 
     setCommandPaletteOpen, 
@@ -47,7 +49,16 @@ export function CommandMenu() {
     debugMode
   } = useAppStore()
 
+  // Fetch projects for search
+  React.useEffect(() => {
+    fetch('/api/projects')
+      .then(res => res.json())
+      .then(data => setProjects(data))
+      .catch(() => {})
+  }, [])
+
   useKeyboard([
+    // ... (rest of shortcuts)
     {
       key: "k",
       metaKey: true,
@@ -86,10 +97,19 @@ export function CommandMenu() {
       <CommandInput placeholder="Type a command or search..." />
       <CommandList>
         <CommandEmpty>No results found.</CommandEmpty>
+        <CommandGroup heading="Projects Archive">
+          {projects.map((project) => (
+            <CommandItem key={project.slug} onSelect={() => runCommand(() => router.push(`/projects/${project.slug}`))}>
+              <SearchIcon className="mr-2 h-4 w-4" />
+              <span>{project.title}</span>
+            </CommandItem>
+          ))}
+        </CommandGroup>
+        <CommandSeparator />
         <CommandGroup heading="Navigation">
           <CommandItem onSelect={() => runCommand(() => router.push("/projects"))}>
             <Calendar className="mr-2 h-4 w-4" />
-            <span>Projects</span>
+            <span>Projects Gallery</span>
           </CommandItem>
           <CommandItem onSelect={() => runCommand(() => router.push("/"))}>
             <Smile className="mr-2 h-4 w-4" />
