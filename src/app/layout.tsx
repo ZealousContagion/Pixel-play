@@ -9,6 +9,7 @@ import { Toaster } from "@/components/ui/toast";
 import { SceneLayout } from "@/components/canvas/scene-layout";
 import { ChatAssistant } from "@/components/shared/chat-assistant";
 import { CreativeConsole } from "@/components/shared/creative-console";
+import { ThemeSync } from "@/components/shared/theme-sync";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -23,8 +24,35 @@ export default function RootLayout({
     children: React.ReactNode;
 }>) {
     return (
-        <html lang="en">
+        <html lang="en" suppressHydrationWarning>
+            <head>
+                <script
+                    dangerouslySetInnerHTML={{
+                        __html: `
+                            (function() {
+                                try {
+                                    const storage = localStorage.getItem('pixel-play-storage');
+                                    if (storage) {
+                                        const state = JSON.parse(storage).state;
+                                        const theme = state.theme;
+                                        if (theme) {
+                                            document.documentElement.classList.add('theme-' + theme);
+                                            const isLight = theme.includes('light');
+                                            if (!isLight) {
+                                                document.documentElement.classList.add('dark');
+                                            } else {
+                                                document.documentElement.classList.remove('dark');
+                                            }
+                                        }
+                                    }
+                                } catch (e) {}
+                            })();
+                        `,
+                    }}
+                />
+            </head>
             <body className={`${inter.className} min-h-screen bg-background antialiased selection:bg-primary selection:text-primary-foreground`}>
+                <ThemeSync />
                 <SceneLayout>
                     {/* Global 3D Elements can go here */}
                 </SceneLayout>

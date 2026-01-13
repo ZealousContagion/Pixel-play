@@ -66,7 +66,7 @@ export function HolographicCard({ children, className }: HolographicCardProps) {
         {/* Holographic Sheen Layer */}
         <motion.div 
           style={{
-            background: "linear-gradient(105deg, transparent 20%, rgba(255,255,255,0.2) 45%, rgba(60,180,231,0.2) 50%, rgba(255,196,35,0.2) 55%, transparent 80%)",
+            background: "linear-gradient(105deg, transparent 20%, hsl(var(--primary)/0.2) 45%, hsl(var(--secondary)/0.2) 50%, hsl(var(--accent)/0.2) 55%, transparent 80%)",
             left: sheenX,
             opacity: sheenOpacity,
           }}

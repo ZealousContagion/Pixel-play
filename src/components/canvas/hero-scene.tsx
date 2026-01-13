@@ -6,12 +6,33 @@ import * as THREE from "three"
 import { useAppStore } from "@/store"
 
 export function HeroScene() {
-  const { performanceMode } = useAppStore()
+  const { performanceMode, theme } = useAppStore()
   const count = performanceMode === 'turbo' ? 1500 : 500
-  const mesh = useRef<THREE.Points>(null)
+  const groupRef = useRef<THREE.Group>(null)
   const { viewport } = useThree()
   
-  // Helper to generate random particles in a sphere/cloud
+  const themeColors = useMemo(() => {
+    if (typeof window === 'undefined') return { primary: '#3cb4e7', secondary: '#ffc423', accent: '#b54d50', muted: '#808080' }
+    
+    const getHex = (varName: string) => {
+        const style = getComputedStyle(document.documentElement)
+        const hsl = style.getPropertyValue(varName).trim()
+        if (!hsl) return '#ffffff'
+        const parts = hsl.split(' ')
+        if (parts.length === 3) {
+            return `hsl(${parts[0]}, ${parts[1]}, ${parts[2]})`
+        }
+        return `hsl(${hsl})`
+    }
+
+    return {
+        primary: getHex('--primary'),
+        secondary: getHex('--secondary'),
+        accent: getHex('--accent'),
+        muted: getHex('--muted-foreground')
+    }
+  }, [theme])
+
   const createParticles = (scale: number, pCount: number) => {
     const temp = new Float32Array(pCount * 3)
     for (let i = 0; i < pCount; i++) {
@@ -37,18 +58,18 @@ export function HeroScene() {
   useFrame((state) => {
     mouse.current = [state.pointer.x * viewport.width / 2, state.pointer.y * viewport.height / 2]
     
-    if (mesh.current) {
-      mesh.current.rotation.x = THREE.MathUtils.lerp(mesh.current.rotation.x, mouse.current[1] / 15, 0.05)
-      mesh.current.rotation.y = THREE.MathUtils.lerp(mesh.current.rotation.y, mouse.current[0] / 15, 0.05)
+    if (groupRef.current) {
+      groupRef.current.rotation.x = THREE.MathUtils.lerp(groupRef.current.rotation.x, mouse.current[1] / 15, 0.05)
+      groupRef.current.rotation.y = THREE.MathUtils.lerp(groupRef.current.rotation.y, mouse.current[0] / 15, 0.05)
     }
   })
 
   return (
-    <group ref={mesh as any}>
-      <Points positions={particlesSky} color="#3cb4e7" size={0.08} opacity={0.6} />
-      <Points positions={particlesYellow} color="#ffc423" size={0.06} opacity={0.5} />
-      <Points positions={particlesRed} color="#b54d50" size={0.07} opacity={0.4} />
-      <Points positions={particlesNavy} color="#0f1b4c" size={0.1} opacity={0.3} />
+    <group ref={groupRef}>
+      <Points positions={particlesSky} color={themeColors.primary} size={0.08} opacity={0.6} />
+      <Points positions={particlesYellow} color={themeColors.secondary} size={0.06} opacity={0.5} />
+      <Points positions={particlesRed} color={themeColors.accent} size={0.07} opacity={0.4} />
+      <Points positions={particlesNavy} color={themeColors.muted} size={0.1} opacity={0.3} />
     </group>
   )
 }

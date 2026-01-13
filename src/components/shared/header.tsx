@@ -11,9 +11,11 @@ import { useAppStore } from "@/store"
 import { cn } from "@/lib/utils"
 import { MobileNav } from "./mobile-nav"
 
+import { ThemeSelector } from "./theme-selector"
+
 export function Header() {
   const pathname = usePathname()
-  const { setCommandPaletteOpen, theme, setTheme } = useAppStore()
+  const { setCommandPaletteOpen, theme } = useAppStore()
 
   return (
     <header className="fixed top-0 z-50 w-full border-b border-border/40 bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
@@ -93,15 +95,7 @@ export function Header() {
               </Kbd>
             </Button>
           </div>
-          <Button
-            variant="ghost"
-            size="icon"
-            onClick={() => setCommandPaletteOpen(true)}
-            className="h-8 w-8 px-0 hover:bg-primary/10 hover:text-primary"
-          >
-            <Palette className="h-4 w-4" />
-            <span className="sr-only">Open Theme Palette</span>
-          </Button>
+          <ThemeSelector />
         </div>
       </div>
     </header>
