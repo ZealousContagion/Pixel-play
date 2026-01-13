@@ -35,14 +35,10 @@ export default function RootLayout({
                                     if (storage) {
                                         const state = JSON.parse(storage).state;
                                         const theme = state.theme;
-                                        if (theme) {
-                                            document.documentElement.classList.add('theme-' + theme);
-                                            const isLight = theme.includes('light');
-                                            if (!isLight) {
-                                                document.documentElement.classList.add('dark');
-                                            } else {
-                                                document.documentElement.classList.remove('dark');
-                                            }
+                                        if (theme === 'dark') {
+                                            document.documentElement.classList.add('dark');
+                                        } else {
+                                            document.documentElement.classList.remove('dark');
                                         }
                                     }
                                 } catch (e) {}

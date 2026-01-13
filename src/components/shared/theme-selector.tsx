@@ -1,45 +1,23 @@
 "use client"
 
 import * as React from "react"
-import { Palette } from "lucide-react"
-import {
-  Select,
-  SelectContent,
-  SelectItem,
-  SelectTrigger,
-  SelectValue,
-} from "@/components/ui/select"
+import { Moon, Sun } from "lucide-react"
+import { Button } from "@/components/ui/button"
 import { useAppStore } from "@/store"
-import { cn } from "@/lib/utils"
 
 export function ThemeSelector() {
-  const { theme, setTheme, availableThemes } = useAppStore()
+  const { theme, setTheme } = useAppStore()
 
   return (
-    <Select value={theme} onValueChange={setTheme}>
-      <SelectTrigger className="w-[140px] h-8 text-[10px] font-mono uppercase tracking-widest bg-background/50 border-border/40 rounded-none focus:ring-0">
-        <div className="flex items-center gap-2">
-            <Palette className="w-3.5 h-3.5 text-primary" />
-            <SelectValue placeholder="Theme" />
-        </div>
-      </SelectTrigger>
-      <SelectContent className="bg-background/95 backdrop-blur-xl border-border/40 rounded-none">
-        {availableThemes.map((t) => (
-          <SelectItem 
-            key={t.id} 
-            value={t.id}
-            className="text-[10px] font-mono uppercase tracking-widest focus:bg-primary/10 focus:text-primary rounded-none"
-          >
-            <div className="flex items-center gap-2">
-                <div className={cn(
-                    "w-2 h-2",
-                    t.type === 'dark' ? "bg-zinc-800" : "bg-zinc-200"
-                )} />
-                {t.name}
-            </div>
-          </SelectItem>
-        ))}
-      </SelectContent>
-    </Select>
+    <Button
+      variant="ghost"
+      size="icon"
+      onClick={() => setTheme(theme === "dark" ? "light" : "dark")}
+      className="h-8 w-8 px-0 hover:bg-primary/10 hover:text-primary rounded-none"
+    >
+      <Sun className="h-4 w-4 rotate-0 scale-100 transition-all dark:-rotate-90 dark:scale-0" />
+      <Moon className="absolute h-4 w-4 rotate-90 scale-0 transition-all dark:rotate-0 dark:scale-100" />
+      <span className="sr-only">Toggle theme</span>
+    </Button>
   )
 }

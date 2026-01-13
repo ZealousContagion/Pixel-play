@@ -25,7 +25,7 @@ export function Header() {
           <Link href="/" className="mr-6 hidden items-center space-x-2 md:flex group">
             <div className="relative w-7 h-7 transition-transform duration-300 group-hover:scale-110">
                 <img 
-                  src={theme.includes('light') ? "/logo.svg" : "/logo-white.svg"} 
+                  src={theme === 'light' ? "/logo.svg" : "/logo-white.svg"} 
                   alt="Pixel Play Logo" 
                   className="w-full h-full object-contain" 
                 />

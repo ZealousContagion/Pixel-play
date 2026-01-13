@@ -2,11 +2,11 @@
 
 import Link from "next/link"
 import { useEffect, useState } from "react"
-import { Github, Twitter, Linkedin, Activity, Clock, Globe, Palette } from "lucide-react"
+import { Github, Twitter, Linkedin, Activity, Clock, Globe, Moon, Sun } from "lucide-react"
 import { useAppStore } from "@/store"
 
 export function Footer() {
-  const { fps, performanceMode, theme, setTheme, availableThemes } = useAppStore()
+  const { fps, performanceMode, theme, setTheme } = useAppStore()
   const [time, setTime] = useState<string>("")
   const [latency, setLatency] = useState<number>(24)
 
@@ -27,10 +27,8 @@ export function Footer() {
     }
   }, [])
 
-  const cycleTheme = () => {
-    const currentIndex = availableThemes.findIndex(t => t.id === theme)
-    const nextIndex = (currentIndex + 1) % availableThemes.length
-    setTheme(availableThemes[nextIndex].id)
+  const toggleTheme = () => {
+    setTheme(theme === 'dark' ? 'light' : 'dark')
   }
 
   return (
@@ -40,7 +38,7 @@ export function Footer() {
           <Link href="/" className="flex items-center space-x-2 group">
              <div className="w-6 h-6">
                 <img 
-                  src={theme.includes('light') ? "/logo.svg" : "/logo-white.svg"} 
+                  src={theme === 'light' ? "/logo.svg" : "/logo-white.svg"} 
                   alt="Logo" 
                   className="w-full h-full object-contain" 
                 />
@@ -122,12 +120,12 @@ export function Footer() {
             </div>
 
             <button 
-                onClick={cycleTheme}
+                onClick={toggleTheme}
                 className="flex items-center gap-2 text-muted-foreground hover:text-primary transition-colors group"
             >
-              <Palette className="w-3 h-3 group-hover:rotate-45 transition-transform" />
+              {theme === 'dark' ? <Moon className="w-3 h-3" /> : <Sun className="w-3 h-3" />}
               <span className="text-[9px] font-mono uppercase tracking-widest">
-                Theme: {availableThemes.find(t => t.id === theme)?.name}
+                Mode: {theme.toUpperCase()}
               </span>
             </button>
           </div>

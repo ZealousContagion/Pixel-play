@@ -38,7 +38,6 @@ export function CommandMenu() {
     setCommandPaletteOpen, 
     setTheme, 
     theme,
-    availableThemes,
     setConsoleOpen, 
     consoleOpen,
     chatOpen,
@@ -108,24 +107,11 @@ export function CommandMenu() {
           </CommandItem>
         </CommandGroup>
         <CommandSeparator />
-        <CommandGroup heading="Color Themes">
-          {availableThemes.map((t) => (
-            <CommandItem 
-                key={t.id} 
-                onSelect={() => runCommand(() => setTheme(t.id))}
-                className={cn(theme === t.id && "bg-primary/10 text-primary")}
-            >
-              <div className={cn(
-                "mr-2 h-3 w-3 rounded-full",
-                t.type === 'dark' ? "bg-zinc-800" : "bg-zinc-200"
-              )} />
-              <span>{t.name}</span>
-              {theme === t.id && <CommandShortcut>ACTIVE</CommandShortcut>}
-            </CommandItem>
-          ))}
-        </CommandGroup>
-        <CommandSeparator />
         <CommandGroup heading="System">
+          <CommandItem onSelect={() => runCommand(() => setTheme(theme === 'dark' ? 'light' : 'dark'))}>
+            {theme === 'dark' ? <Sun className="mr-2 h-4 w-4" /> : <Moon className="mr-2 h-4 w-4" />}
+            <span>Switch to {theme === 'dark' ? 'Light' : 'Dark'} Mode</span>
+          </CommandItem>
           <CommandItem onSelect={() => runCommand(() => setPerformanceMode(performanceMode === 'turbo' ? 'eco' : 'turbo'))}>
             <Zap className="mr-2 h-4 w-4" />
             <span>Toggle Turbo Mode</span>

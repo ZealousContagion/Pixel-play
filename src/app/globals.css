@@ -26,8 +26,7 @@
     --radius: 0.3rem;
   }
 
-  /* Dark Modern (Default Dark) */
-  .dark, .theme-dark-modern {
+  .dark {
     --background: 240 10% 3.9%;
     --foreground: 0 0% 98%;
     --card: 240 10% 6%;
@@ -44,54 +43,6 @@
     --accent-foreground: 0 0% 98%;
     --border: 240 3.7% 15.9%;
     --input: 240 3.7% 15.9%;
-  }
-
-  /* Tokyo Night */
-  .theme-tokyo-night {
-    --background: 234 30% 12%;
-    --foreground: 230 40% 80%;
-    --primary: 190 80% 60%;
-    --secondary: 280 60% 70%;
-    --accent: 340 70% 60%;
-    --muted: 234 30% 18%;
-    --card: 234 30% 14%;
-    --border: 234 30% 25%;
-  }
-
-  /* Synthwave '84 */
-  .theme-synthwave {
-    --background: 265 40% 10%;
-    --foreground: 300 100% 90%;
-    --primary: 320 100% 60%; /* Hot Pink */
-    --secondary: 190 100% 50%; /* Cyan */
-    --accent: 45 100% 50%; /* Golden */
-    --muted: 265 40% 15%;
-    --card: 265 40% 12%;
-    --border: 320 100% 60% / 0.3;
-  }
-
-  /* Monokai */
-  .theme-monokai {
-    --background: 70 8% 15%;
-    --foreground: 0 0% 95%;
-    --primary: 80 75% 65%; /* Green */
-    --secondary: 190 80% 70%; /* Cyan */
-    --accent: 340 80% 65%; /* Pink */
-    --muted: 70 8% 20%;
-    --card: 70 8% 18%;
-    --border: 70 8% 25%;
-  }
-
-  /* GitHub Light */
-  .theme-github-light {
-    --background: 0 0% 100%;
-    --foreground: 210 20% 10%;
-    --primary: 210 100% 50%;
-    --secondary: 120 40% 45%;
-    --accent: 30 100% 50%;
-    --muted: 210 20% 96%;
-    --card: 0 0% 100%;
-    --border: 210 20% 90%;
   }
 }
 
