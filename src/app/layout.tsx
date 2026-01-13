@@ -10,6 +10,7 @@ import { SceneLayout } from "@/components/canvas/scene-layout";
 import { UnifiedTerminal } from "@/components/shared/unified-terminal";
 import { ThemeSync } from "@/components/shared/theme-sync";
 import { GlobalLoader } from "@/components/shared/global-loader";
+import EngineLoading from "@/components/shared/engine-loading";
 import { Suspense } from "react";
 
 const inter = Inter({ subsets: ["latin"] });
@@ -59,8 +60,10 @@ export default function RootLayout({
                 
                 <Header />
                 
-                <main className="flex min-h-screen flex-col pt-14 pb-20">
-                    {children}
+                <main className="flex min-h-screen flex-col pt-14 pb-20 relative">
+                    <Suspense fallback={<EngineLoading />}>
+                        {children}
+                    </Suspense>
                 </main>
                 
                 <Footer />
