@@ -11,6 +11,7 @@ import {
   SheetContent,
   SheetHeader,
   SheetTitle,
+  SheetDescription,
   SheetTrigger,
 } from "@/components/ui/sheet"
 import { useAppStore } from "@/store"
@@ -43,6 +44,12 @@ export function MobileNav() {
         </Button>
       </SheetTrigger>
       <SheetContent side="left" className="bg-background/95 backdrop-blur-xl border-r border-border/40 p-0 w-[300px]">
+        <SheetHeader className="sr-only">
+          <SheetTitle>Navigation Menu</SheetTitle>
+          <SheetDescription>
+            Access all pages and modules of the Pixel Play Engine.
+          </SheetDescription>
+        </SheetHeader>
         <div className="flex flex-col h-full">
           <div className="p-6 border-b border-border/20">
             <Link href="/" onClick={() => setOpen(false)} className="flex items-center gap-2 group">
