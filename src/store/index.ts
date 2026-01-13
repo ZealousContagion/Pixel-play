@@ -53,6 +53,10 @@ interface AppState {
         iconSet: 'minimal' | 'geometric' | 'organic';
     };
     updateBrand: (data: Partial<AppState['brand']>) => void;
+
+    // Audio System
+    soundEnabled: boolean;
+    setSoundEnabled: (enabled: boolean) => void;
 }
 
 export const useAppStore = create<AppState>()(
@@ -127,6 +131,10 @@ export const useAppStore = create<AppState>()(
             updateBrand: (data) => set((state) => ({ 
                 brand: { ...state.brand, ...data } 
             })),
+
+            // Audio System
+            soundEnabled: true,
+            setSoundEnabled: (soundEnabled) => set({ soundEnabled }),
         }),
         {
             name: 'pixel-play-storage',

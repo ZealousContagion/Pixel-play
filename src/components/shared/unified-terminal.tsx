@@ -20,6 +20,8 @@ import { cn } from "@/lib/utils"
 import { Button } from "@/components/ui/button"
 import { useRouter } from "next/navigation"
 
+import { useSound } from "@/hooks/use-sound"
+
 export function UnifiedTerminal() {
   const { 
     terminalOpen, 
@@ -35,6 +37,7 @@ export function UnifiedTerminal() {
     setBlueprintMode
   } = useAppStore()
   
+  const { playSound } = useSound()
   const router = useRouter()
   const [input, setInput] = React.useState("")
   const [isExpanded, setIsExpanded] = React.useState(false)
@@ -44,6 +47,7 @@ export function UnifiedTerminal() {
   const { messages, append, isLoading } = useChat({
     onFinish: ({ message }: { message: any }) => {
         addLog(`AI_SIGNAL_RECEIVED: ${message.content.substring(0, 20)}...`, "info")
+        playSound('success', 0.1)
     }
   }) as any
 
@@ -59,6 +63,7 @@ export function UnifiedTerminal() {
     const args = parts.slice(1)
 
     addLog(`$ ${cmdStr}`, 'info')
+    playSound('terminal', 0.2)
 
     switch (cmd) {
       case 'help':
@@ -69,31 +74,37 @@ export function UnifiedTerminal() {
       case 'ai':
         setTerminalMode('ai')
         addLog('MODE_SWITCH: AI_ASSISTANT_ACTIVE', 'sys')
+        playSound('boot', 0.3)
         break
       case 'sys':
         setTerminalMode('sys')
         addLog('MODE_SWITCH: SYSTEM_LOGS_ACTIVE', 'sys')
+        playSound('boot', 0.3)
         break
       case 'cd':
         const path = args[0]
         if (!path || path === '~') { router.push('/'); addLog('NAV: ROOT', 'sys') }
         else { router.push(`/${path}`); addLog(`NAV: ${path.toUpperCase()}`, 'sys') }
+        playSound('click', 0.2)
         break
       case 'theme':
         if (args[0] === 'light' || args[0] === 'dark') {
             setTheme(args[0])
             addLog(`THEME: ${args[0].toUpperCase()}`, 'sys')
+            playSound('success', 0.2)
         }
         break
       case 'blueprint':
         setBlueprintMode(args[0] === 'on')
         addLog(`BLUEPRINT: ${args[0].toUpperCase()}`, 'sys')
+        playSound('success', 0.2)
         break
       case 'clear':
         clearLogs()
         break
       default:
         addLog(`UNKNOWN_CMD: ${cmd}. Type "help"`, 'error')
+        playSound('error', 0.2)
     }
   }
 
@@ -113,6 +124,7 @@ export function UnifiedTerminal() {
     } else {
         setTerminalMode('ai')
         addLog(`USER_PROMPT: ${val.substring(0, 20)}...`, 'info')
+        playSound('terminal', 0.1)
         await append({ role: 'user', content: val })
     }
   }
