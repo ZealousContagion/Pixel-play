@@ -40,6 +40,21 @@ interface AppState {
     setPerformanceMode: (mode: 'turbo' | 'eco') => void;
     autoScale: boolean;
     setAutoScale: (enabled: boolean) => void;
+
+    // Brand Architect
+    brand: {
+        name: string;
+        logo: string | null;
+        colors: {
+            primary: string;
+            secondary: string;
+            accent: string;
+            background: string;
+        };
+        voice: string;
+        iconSet: 'minimal' | 'geometric' | 'organic';
+    };
+    updateBrand: (data: Partial<AppState['brand']>) => void;
 }
 
 export const useAppStore = create<AppState>()(
@@ -47,6 +62,7 @@ export const useAppStore = create<AppState>()(
         (set) => ({
             // ... existing state ...
             theme: 'dark',
+            // ... (keep previous simplified theme logic)
             setTheme: (theme) => {
                 const doc = document.documentElement;
                 doc.classList.toggle('dark', theme === 'dark');
@@ -97,6 +113,23 @@ export const useAppStore = create<AppState>()(
             setPerformanceMode: (performanceMode) => set({ performanceMode }),
             autoScale: true,
             setAutoScale: (autoScale) => set({ autoScale }),
+
+            // Brand Architect
+            brand: {
+                name: "New System",
+                logo: null,
+                colors: {
+                    primary: "#3cb4e7",
+                    secondary: "#ffc423",
+                    accent: "#b54d50",
+                    background: "#0f1b4c"
+                },
+                voice: "Professional, technical, and forward-thinking.",
+                iconSet: "minimal"
+            },
+            updateBrand: (data) => set((state) => ({ 
+                brand: { ...state.brand, ...data } 
+            })),
         }),
         {
             name: 'pixel-play-storage',
