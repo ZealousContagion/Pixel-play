@@ -35,3 +35,12 @@ export const ROUTES = {
     PROJECTS: '/projects',
     PROJECT_DETAIL: (slug: string) => `/projects/${slug}`,
 } as const;
+
+export const SOCIAL_LINKS = {
+    LINKEDIN: 'https://www.linkedin.com/in/william-mutangadura-553253289',
+    YOUTUBE: 'https://www.youtube.com/@williammutangadura6973',
+    INSTAGRAM: 'https://www.instagram.com/_i_am_will.i.am_',
+    WHATSAPP: 'https://wa.me/', // Placeholder since number wasn't provided, but structure is ready.
+    GITHUB: 'https://github.com/ZealousContagion', // Inferred from git remote in previous turn
+    EMAIL: 'william@pixelplay.dev', // Placeholder email based on domain context
+} as const;

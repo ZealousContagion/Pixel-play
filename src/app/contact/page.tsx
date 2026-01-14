@@ -7,9 +7,10 @@ import { Label } from "@/components/ui/label"
 import { Textarea } from "@/components/ui/textarea"
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select"
-import { Send, Loader2, Mail, Linkedin } from "lucide-react"
+import { Send, Loader2, Mail, Linkedin, Youtube, Instagram, MessageCircle, Github } from "lucide-react"
 import { Badge } from "@/components/ui/badge"
 import { toast } from "sonner"
+import { SOCIAL_LINKS } from "@/lib/constants"
 
 export default function ContactPage() {
   const [isLoading, setIsLoading] = useState(false)
@@ -48,25 +49,46 @@ export default function ContactPage() {
             </div>
 
             <div className="space-y-6 pt-8 border-t border-border/40">
-                <div className="flex items-center gap-4 group cursor-pointer">
-                    <div className="w-12 h-12 rounded-full bg-muted/20 flex items-center justify-center group-hover:bg-primary/20 transition-colors">
-                        <Mail className="w-5 h-5 text-muted-foreground group-hover:text-primary transition-colors" />
-                    </div>
-                    <div>
-                        <p className="text-[10px] font-mono text-muted-foreground uppercase tracking-widest">Email_Direct</p>
-                        <p className="font-bold text-lg group-hover:text-primary transition-colors">engine@pixelplay.dev</p>
-                    </div>
-                </div>
-
-                <div className="flex items-center gap-4 group cursor-pointer">
+                <a href={SOCIAL_LINKS.LINKEDIN} target="_blank" rel="noreferrer" className="flex items-center gap-4 group cursor-pointer">
                     <div className="w-12 h-12 rounded-full bg-muted/20 flex items-center justify-center group-hover:bg-primary/20 transition-colors">
                         <Linkedin className="w-5 h-5 text-muted-foreground group-hover:text-primary transition-colors" />
                     </div>
                     <div>
-                        <p className="text-[10px] font-mono text-muted-foreground uppercase tracking-widest">LinkedIn_Connect</p>
-                        <p className="font-bold text-lg group-hover:text-primary transition-colors">linkedin.com/in/pixelplay</p>
+                        <p className="text-[10px] font-mono text-muted-foreground uppercase tracking-widest">Professional_Network</p>
+                        <p className="font-bold text-lg group-hover:text-primary transition-colors">LinkedIn</p>
                     </div>
-                </div>
+                </a>
+
+                <a href={SOCIAL_LINKS.YOUTUBE} target="_blank" rel="noreferrer" className="flex items-center gap-4 group cursor-pointer">
+                    <div className="w-12 h-12 rounded-full bg-muted/20 flex items-center justify-center group-hover:bg-primary/20 transition-colors">
+                        <Youtube className="w-5 h-5 text-muted-foreground group-hover:text-primary transition-colors" />
+                    </div>
+                    <div>
+                        <p className="text-[10px] font-mono text-muted-foreground uppercase tracking-widest">Video_Content</p>
+                        <p className="font-bold text-lg group-hover:text-primary transition-colors">YouTube Channel</p>
+                    </div>
+                </a>
+
+                <a href={SOCIAL_LINKS.INSTAGRAM} target="_blank" rel="noreferrer" className="flex items-center gap-4 group cursor-pointer">
+                    <div className="w-12 h-12 rounded-full bg-muted/20 flex items-center justify-center group-hover:bg-primary/20 transition-colors">
+                        <Instagram className="w-5 h-5 text-muted-foreground group-hover:text-primary transition-colors" />
+                    </div>
+                    <div>
+                        <p className="text-[10px] font-mono text-muted-foreground uppercase tracking-widest">Visual_Feed</p>
+                        <p className="font-bold text-lg group-hover:text-primary transition-colors">Instagram</p>
+                    </div>
+                </a>
+
+                {/* WhatsApp - Only show if link is valid (e.g. not just base url) or just show as available channel */}
+                <a href={SOCIAL_LINKS.WHATSAPP} target="_blank" rel="noreferrer" className="flex items-center gap-4 group cursor-pointer">
+                    <div className="w-12 h-12 rounded-full bg-muted/20 flex items-center justify-center group-hover:bg-primary/20 transition-colors">
+                        <MessageCircle className="w-5 h-5 text-muted-foreground group-hover:text-primary transition-colors" />
+                    </div>
+                    <div>
+                        <p className="text-[10px] font-mono text-muted-foreground uppercase tracking-widest">Direct_Chat</p>
+                        <p className="font-bold text-lg group-hover:text-primary transition-colors">WhatsApp</p>
+                    </div>
+                </a>
             </div>
         </div>
 

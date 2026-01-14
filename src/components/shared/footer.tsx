@@ -2,8 +2,9 @@
 
 import Link from "next/link"
 import { useEffect, useState } from "react"
-import { Github, Twitter, Linkedin, Activity, Clock, Globe, Moon, Sun } from "lucide-react"
+import { Github, Linkedin, Activity, Clock, Moon, Sun, Youtube, Instagram, MessageCircle } from "lucide-react"
 import { useAppStore } from "@/store"
+import { SOCIAL_LINKS } from "@/lib/constants"
 
 export function Footer() {
   const { fps, performanceMode, theme, setTheme } = useAppStore()
@@ -71,11 +72,17 @@ export function Footer() {
           
           <div className="flex flex-col gap-2">
             <h3 className="font-bold text-[10px] uppercase tracking-widest text-primary mb-2 italic">Social</h3>
-            <a href="https://github.com" target="_blank" rel="noreferrer" className="text-[11px] font-mono text-muted-foreground hover:text-primary transition-colors uppercase tracking-tight">
-              GitHub.git
+            <a href={SOCIAL_LINKS.LINKEDIN} target="_blank" rel="noreferrer" className="flex items-center gap-2 text-[11px] font-mono text-muted-foreground hover:text-primary transition-colors uppercase tracking-tight">
+              <Linkedin className="w-3 h-3" /> LinkedIn
             </a>
-            <a href="https://twitter.com" target="_blank" rel="noreferrer" className="text-[11px] font-mono text-muted-foreground hover:text-primary transition-colors uppercase tracking-tight">
-              Twitter.api
+            <a href={SOCIAL_LINKS.YOUTUBE} target="_blank" rel="noreferrer" className="flex items-center gap-2 text-[11px] font-mono text-muted-foreground hover:text-primary transition-colors uppercase tracking-tight">
+              <Youtube className="w-3 h-3" /> YouTube
+            </a>
+            <a href={SOCIAL_LINKS.INSTAGRAM} target="_blank" rel="noreferrer" className="flex items-center gap-2 text-[11px] font-mono text-muted-foreground hover:text-primary transition-colors uppercase tracking-tight">
+              <Instagram className="w-3 h-3" /> Instagram
+            </a>
+            <a href={SOCIAL_LINKS.GITHUB} target="_blank" rel="noreferrer" className="flex items-center gap-2 text-[11px] font-mono text-muted-foreground hover:text-primary transition-colors uppercase tracking-tight">
+              <Github className="w-3 h-3" /> GitHub
             </a>
           </div>
 
