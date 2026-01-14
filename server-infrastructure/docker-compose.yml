@@ -1,0 +1,54 @@
+version: '3.8'
+
+services:
+  # Nginx Reverse Proxy - The "Front Door"
+  nginx-proxy:
+    image: nginxproxy/nginx-proxy
+    container_name: nginx-proxy
+    ports:
+      - "80:80"
+    volumes:
+      - "/var/run/docker.sock:/tmp/docker.sock:ro"
+    networks:
+      - proxy
+    restart: always
+
+  # Portainer - Docker Management GUI
+  portainer:
+    image: portainer/portainer-ce:latest
+    container_name: portainer
+    security_opt:
+      - no-new-privileges:true
+    volumes:
+      - "/var/run/docker.sock:/var/run/docker.sock:ro"
+      - "portainer_data:/data"
+    # No ports exposed directly needed if accessing via proxy, 
+    # but keeping 9000 as a backup access method.
+    ports:
+      - "9000:9000"
+    environment:
+      - VIRTUAL_HOST=portainer.local
+      - VIRTUAL_PORT=9000
+    networks:
+      - proxy
+    restart: always
+
+  # Cloudflare Tunnel - Secure Public Internet Access
+  tunnel:
+    container_name: cloudflared
+    image: cloudflare/cloudflared:latest
+    restart: unless-stopped
+    command: tunnel run
+    environment:
+      - TUNNEL_TOKEN=${TUNNEL_TOKEN}
+    networks:
+      - proxy
+
+# Create a shared network that other apps (like Pixel Play) can join
+networks:
+  proxy:
+    name: proxy_network
+    driver: bridge
+
+volumes:
+  portainer_data:
