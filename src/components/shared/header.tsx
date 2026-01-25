@@ -2,6 +2,7 @@
 
 import * as React from "react"
 import Link from "next/link"
+import Image from "next/image"
 import { usePathname } from "next/navigation"
 import { Search, Moon, Sun, Command as CommandIcon, Palette } from "lucide-react"
 
@@ -24,10 +25,11 @@ export function Header() {
           <MobileNav />
           <Link href="/" className="mr-6 hidden items-center space-x-2 md:flex group">
             <div className="relative w-7 h-7 transition-transform duration-300 group-hover:scale-110">
-                <img 
+                <Image 
                   src={theme === 'light' ? "/logo.svg" : "/logo-white.svg"} 
                   alt="Pixel Play Logo" 
-                  className="w-full h-full object-contain" 
+                  fill
+                  className="object-contain" 
                 />
             </div>
             <span className="font-black sm:inline-block tracking-tighter uppercase text-base italic">

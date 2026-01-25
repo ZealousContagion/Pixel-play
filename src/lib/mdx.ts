@@ -12,6 +12,8 @@ export type ProjectFrontmatter = {
   metrics?: { label: string; value: string }[]
   featured: boolean
   thumbnail: string
+  demoUrl?: string
+  repoUrl?: string
   viewport: {
     type: 'iframe' | 'canvas' | 'webgl'
     src?: string

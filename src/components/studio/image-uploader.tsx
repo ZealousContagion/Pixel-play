@@ -3,6 +3,7 @@
 import React, { useState, useCallback } from "react"
 import { useDropzone } from "react-dropzone"
 import { Upload, Image as ImageIcon, CheckCircle2, X } from "lucide-react"
+import Image from "next/image"
 import { Badge } from "@/components/ui/badge"
 import { Button } from "@/components/ui/button"
 
@@ -57,7 +58,7 @@ export function ImageUploader({ onImageLoad, currentImage }: ImageUploaderProps)
                 {currentImage ? (
                     <div className="relative group w-full h-full flex flex-col items-center justify-center gap-2">
                         <div className="w-16 h-16 bg-white/10 flex items-center justify-center border border-border/20 overflow-hidden">
-                            <img src={currentImage} alt="Preview" className="max-w-full max-h-full object-contain" />
+                            <Image src={currentImage} alt="Preview" width={64} height={64} className="max-w-full max-h-full object-contain" />
                         </div>
                         <div className="space-y-1">
                             <p className="text-[9px] font-mono uppercase text-primary tracking-widest flex items-center justify-center gap-1">

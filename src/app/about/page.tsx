@@ -2,6 +2,7 @@ import { Badge } from "@/components/ui/badge"
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
 import { Separator } from "@/components/ui/separator"
 import { TechStackSection } from "@/components/about/tech-stack-section"
+import Image from "next/image"
 
 export default function AboutPage() {
   return (
@@ -59,7 +60,7 @@ export default function AboutPage() {
           <h2 className="text-2xl font-black uppercase italic tracking-tighter">Design Philosophy</h2>
           <div className="space-y-4 text-sm text-muted-foreground leading-relaxed">
             <p>
-              I believe that great digital experiences are born at the intersection of rigorous engineering and intuitive design. My approach is rooted in the "Creative Engine" concept.
+              I believe that great digital experiences are born at the intersection of rigorous engineering and intuitive design. My approach is rooted in the &quot;Creative Engine&quot; concept.
             </p>
           </div>
           
@@ -80,7 +81,7 @@ export default function AboutPage() {
             <div className="absolute inset-0 flex items-center justify-center z-10">
                 <div className="text-center space-y-2">
                     <div className="w-24 h-24 rounded-full bg-background border-4 border-primary/20 mx-auto flex items-center justify-center overflow-hidden">
-                         <img src="/logo.svg" alt="Branding" className="w-12 h-12 opacity-50 grayscale group-hover:grayscale-0 transition-all duration-500" />
+                         <Image src="/logo.svg" alt="Branding" width={48} height={48} className="opacity-50 grayscale group-hover:grayscale-0 transition-all duration-500" />
                     </div>
                     <p className="text-[10px] font-mono text-muted-foreground uppercase tracking-widest">Engineer_Face_Scan.png</p>
                 </div>

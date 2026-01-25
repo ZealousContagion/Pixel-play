@@ -22,9 +22,11 @@ export default function ResumePage() {
           </div>
         </div>
         
-        <Button className="rounded-full h-12 px-8 font-bold gap-2 group">
-          <Download className="w-4 h-4 group-hover:translate-y-0.5 transition-transform" />
-          Download PDF.src
+        <Button asChild className="rounded-full h-12 px-8 font-bold gap-2 group">
+          <a href="/resume.pdf" download="Pixel_Play_Resume.pdf">
+            <Download className="w-4 h-4 group-hover:translate-y-0.5 transition-transform" />
+            Download PDF.src
+          </a>
         </Button>
       </header>
 

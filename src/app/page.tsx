@@ -3,6 +3,7 @@ import { getAllProjects } from "@/lib/mdx"
 import { HomeHero } from "@/components/home/home-hero"
 import { TechStackSection } from "@/components/about/tech-stack-section"
 import { Separator } from "@/components/ui/separator"
+import { CallToAction } from "@/components/shared/cta-section"
 
 export default async function Home() {
   const projects = await getAllProjects()
@@ -41,7 +42,7 @@ export default async function Home() {
                 }
             ].map((t, i) => (
                 <div key={i} className="p-6 rounded-2xl bg-muted/5 border border-border/20 relative group hover:border-primary/50 transition-colors">
-                    <p className="text-lg italic mb-6 text-muted-foreground leading-relaxed">"{t.quote}"</p>
+                    <p className="text-lg italic mb-6 text-muted-foreground leading-relaxed">&quot;{t.quote}&quot;</p>
                     <div className="flex items-center gap-3">
                         <div className="w-10 h-10 rounded-full bg-primary/20 flex items-center justify-center font-bold text-primary">
                             {t.author[0]}
@@ -61,6 +62,8 @@ export default async function Home() {
       <section className="container py-20 bg-muted/5 rounded-3xl border border-border/20">
          <TechStackSection />
       </section>
+
+      <CallToAction />
     </div>
   )
 }

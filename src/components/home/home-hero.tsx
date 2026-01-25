@@ -1,7 +1,6 @@
 "use client"
 
 import * as React from "react"
-import dynamic from "next/dynamic"
 import { Button } from "@/components/ui/button"
 import { ArrowRight } from "lucide-react"
 import { Badge } from "@/components/ui/badge"
@@ -9,31 +8,10 @@ import { ContactDialog } from "@/components/shared/contact-dialog"
 import { cn } from "@/lib/utils"
 import { useAppStore } from "@/store"
 import { Activity, Zap, Cpu } from "lucide-react"
-
-const View = dynamic(() => import("@react-three/drei").then((mod) => mod.View), {
-  ssr: false,
-  loading: () => (
-    <div className="h-full w-full flex items-center justify-center bg-muted/5">
-        <div className="w-8 h-8 border-2 border-primary border-t-transparent rounded-full animate-spin" />
-    </div>
-  ),
-})
-
-const HeroScene = dynamic(() => import("@/components/canvas/hero-scene").then((mod) => mod.HeroScene), {
-  ssr: false,
-})
-
-const EngineCore = dynamic(() => import("@/components/shared/engine-loader").then((mod) => mod.EngineCore), {
-  ssr: false,
-})
+import { HeroBackground } from "@/components/home/hero-background"
 
 export function HomeHero() {
   const { 
-    fps, 
-    performanceMode, 
-    setPerformanceMode, 
-    autoScale, 
-    setAutoScale, 
     terminalOpen, 
     setTerminalOpen,
     addLog 
@@ -44,26 +22,9 @@ export function HomeHero() {
     grid?.scrollIntoView({ behavior: 'smooth' })
   }
 
-  const togglePerformance = () => {
-    const nextMode = performanceMode === 'turbo' ? 'eco' : 'turbo'
-    setPerformanceMode(nextMode)
-    addLog(`MANUAL_OVERRIDE: Performance set to ${nextMode.toUpperCase()}`, 'warn')
-  }
-
-  const toggleAutoScale = () => {
-    setAutoScale(!autoScale)
-    addLog(`SYSTEM_POLICY_UPDATED: Auto-Scaling ${!autoScale ? 'ENABLED' : 'DISABLED'}`, 'sys')
-  }
-
   return (
       <section className="relative h-[70vh] w-full flex items-center justify-center overflow-hidden border-b border-border/40 bg-muted/5">
-        <div className="absolute inset-0 z-0 opacity-60">
-          <View className="h-full w-full">
-            <React.Suspense fallback={<EngineCore />}>
-                <HeroScene />
-            </React.Suspense>
-          </View>
-        </div>
+        <HeroBackground />
 
         {/* Decorative Scanner Line */}
         <div className="absolute inset-0 pointer-events-none overflow-hidden z-[5]">
@@ -73,10 +34,10 @@ export function HomeHero() {
         <div className="container relative z-10 flex flex-col items-center gap-4 sm:gap-6 text-center px-4">
           <div className="space-y-2 sm:space-y-3">
             <Badge variant="outline" className="px-3 py-0.5 border-primary/30 text-primary bg-primary/5 animate-pulse text-[10px] sm:text-[11px] rounded-none font-mono">
-                ENGINE_BUILD_1.0.2
+                SYSTEM_ONLINE_2.0
             </Badge>
             <h1 className="text-4xl font-bold tracking-tighter sm:text-6xl md:text-8xl bg-clip-text text-transparent bg-gradient-to-b from-foreground to-foreground/50 leading-[0.9] uppercase italic">
-                Creative Engine
+                Pixel Play
             </h1>
             <p className="max-w-[650px] mx-auto text-muted-foreground text-sm sm:text-lg font-medium px-2 leading-relaxed">
                 High-performance digital architecture bridging the gap between <span className="text-primary">code</span> and <span className="text-secondary">motion</span>.
@@ -99,42 +60,33 @@ export function HomeHero() {
             </ContactDialog>
           </div>
 
-          {/* New Engine Dashboard Component */}
+          {/* New Engine Dashboard Component - Simplified for 2D */}
           <div className="grid grid-cols-3 gap-2 w-full max-w-xl mt-4 pt-4 border-t border-border/20">
-             <button 
-                onClick={() => addLog("SYSTEM_RESYNC: Latency stabilized", "sys")}
-                className="flex flex-col items-center p-3 sm:p-4 bg-background/40 backdrop-blur-md rounded-xl border border-border/40 group hover:border-primary/50 transition-all hover:scale-[1.02] active:scale-95"
+             <div 
+                className="flex flex-col items-center p-3 sm:p-4 bg-background/40 backdrop-blur-md rounded-xl border border-border/40 transition-all"
              >
-                <Activity className="w-4 h-4 sm:w-5 sm:h-5 text-primary mb-1 sm:mb-2 group-hover:animate-pulse" />
-                <span className="text-[8px] sm:text-[10px] font-mono text-muted-foreground uppercase tracking-widest">Core_Latency</span>
-                <span className="text-base sm:text-xl font-bold font-mono text-foreground">24ms</span>
-             </button>
+                <Activity className="w-4 h-4 sm:w-5 sm:h-5 text-primary mb-1 sm:mb-2 animate-pulse" />
+                <span className="text-[8px] sm:text-[10px] font-mono text-muted-foreground uppercase tracking-widest">Status</span>
+                <span className="text-base sm:text-xl font-bold font-mono text-foreground">OPTIMIZED</span>
+             </div>
 
-             <button 
-                onClick={toggleAutoScale}
-                className={cn(
-                    "flex flex-col items-center p-3 sm:p-4 bg-background/40 backdrop-blur-md rounded-xl border transition-all hover:scale-[1.02] active:scale-95",
-                    autoScale ? "border-secondary/50" : "border-border/40 opacity-60"
-                )}
+             <div 
+                className="flex flex-col items-center p-3 sm:p-4 bg-background/40 backdrop-blur-md rounded-xl border border-border/40 transition-all opacity-80"
              >
-                <Zap className={cn("w-4 h-4 sm:w-5 sm:h-5 mb-1 sm:mb-2", autoScale ? "text-secondary" : "text-muted-foreground")} />
+                <Zap className="w-4 h-4 sm:w-5 sm:h-5 text-secondary mb-1 sm:mb-2" />
                 <span className="text-[8px] sm:text-[10px] font-mono text-muted-foreground uppercase tracking-widest">
-                    {autoScale ? "Auto_ON" : "Auto_OFF"}
+                    Load_Time
                 </span>
-                <span className="text-base sm:text-xl font-bold font-mono text-foreground">{fps}</span>
-             </button>
+                <span className="text-base sm:text-xl font-bold font-mono text-foreground">~50ms</span>
+             </div>
 
-             <button 
-                onClick={togglePerformance}
-                className={cn(
-                    "flex flex-col items-center p-3 sm:p-4 bg-background/40 backdrop-blur-md rounded-xl border transition-all hover:scale-[1.02] active:scale-95 col-span-2 sm:col-span-1",
-                    performanceMode === 'turbo' ? "border-accent/50 shadow-lg shadow-accent/5" : "border-border/40"
-                )}
+             <div 
+                className="flex flex-col items-center p-3 sm:p-4 bg-background/40 backdrop-blur-md rounded-xl border border-border/40 transition-all col-span-2 sm:col-span-1 opacity-80"
              >
-                <Cpu className={cn("w-4 h-4 sm:w-5 sm:h-5 mb-1 sm:mb-2", performanceMode === 'turbo' ? "text-accent" : "text-muted-foreground")} />
-                <span className="text-[8px] sm:text-[10px] font-mono text-muted-foreground uppercase tracking-widest whitespace-nowrap">Engine_Mode</span>
-                <span className="text-base sm:text-xl font-bold font-mono text-foreground uppercase">{performanceMode}</span>
-             </button>
+                <Cpu className="w-4 h-4 sm:w-5 sm:h-5 text-accent mb-1 sm:mb-2" />
+                <span className="text-[8px] sm:text-[10px] font-mono text-muted-foreground uppercase tracking-widest whitespace-nowrap">Mode</span>
+                <span className="text-base sm:text-xl font-bold font-mono text-foreground uppercase">LIGHT</span>
+             </div>
           </div>
 
           <Button 

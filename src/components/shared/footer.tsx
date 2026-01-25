@@ -1,6 +1,7 @@
 "use client"
 
 import Link from "next/link"
+import Image from "next/image"
 import { useEffect, useState } from "react"
 import { Github, Linkedin, Activity, Clock, Moon, Sun, Youtube, Instagram, MessageCircle } from "lucide-react"
 import { useAppStore } from "@/store"
@@ -37,11 +38,12 @@ export function Footer() {
       <div className="container flex flex-col gap-8 md:flex-row md:justify-between mb-12">
         <div className="flex flex-col gap-4">
           <Link href="/" className="flex items-center space-x-2 group">
-             <div className="w-6 h-6">
-                <img 
+             <div className="w-6 h-6 relative">
+                <Image 
                   src={theme === 'light' ? "/logo.svg" : "/logo-white.svg"} 
                   alt="Logo" 
-                  className="w-full h-full object-contain" 
+                  fill
+                  className="object-contain" 
                 />
             </div>
             <span className="font-black text-lg tracking-tighter uppercase italic">Pixel Play</span>

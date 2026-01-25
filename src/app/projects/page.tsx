@@ -1,6 +1,7 @@
 import { BentoGrid } from "@/components/home/bento-grid"
 import { getAllProjects } from "@/lib/mdx"
 import { Badge } from "@/components/ui/badge"
+import { CallToAction } from "@/components/shared/cta-section"
 
 export const metadata = {
   title: "Projects | Pixel Play",
@@ -28,12 +29,7 @@ export default async function ProjectsPage() {
       {/* Grid */}
       <BentoGrid projects={projects as any} />
 
-      {/* Footer Note */}
-      <section className="pt-20 border-t border-border/20 text-center">
-        <p className="text-sm font-mono text-muted-foreground uppercase tracking-widest">
-            End_of_Archive — More coming soon
-        </p>
-      </section>
+      <CallToAction />
     </div>
   )
 }

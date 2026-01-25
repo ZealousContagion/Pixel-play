@@ -2,6 +2,7 @@
 
 import * as React from "react"
 import Link from "next/link"
+import Image from "next/image"
 import { usePathname } from "next/navigation"
 import { Menu } from "lucide-react"
 
@@ -54,10 +55,12 @@ export function MobileNav() {
           <div className="p-6 border-b border-border/20">
             <Link href="/" onClick={() => setOpen(false)} className="flex items-center gap-2 group">
               <div className="w-8 h-8 rounded-none border border-primary/20 flex items-center justify-center bg-primary/5">
-                <img 
+                <Image 
                   src={theme === 'light' ? "/logo.svg" : "/logo-white.svg"} 
                   alt="Logo" 
-                  className="w-5 h-5 object-contain" 
+                  width={20}
+                  height={20}
+                  className="object-contain" 
                 />
               </div>
               <span className="font-black tracking-tighter uppercase italic text-lg">Pixel Play</span>

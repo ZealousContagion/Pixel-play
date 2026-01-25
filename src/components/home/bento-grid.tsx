@@ -4,6 +4,7 @@ import { useState } from "react"
 import { motion, AnimatePresence } from "framer-motion"
 import { ArrowUpRight, Code, Box, PenTool, LayoutGrid } from "lucide-react"
 import Link from "next/link"
+import Image from "next/image"
 import { cn } from "@/lib/utils"
 import { Badge } from "@/components/ui/badge"
 import { HolographicCard } from "@/components/ui/holographic-card"
@@ -111,10 +112,11 @@ export function BentoGrid({ projects }: BentoGridProps) {
                             
                             <div className="w-full h-24 sm:h-28 rounded-none bg-muted/10 border border-border/20 overflow-hidden relative mt-2">
                                 {project.meta.thumbnail ? (
-                                    <img 
+                                    <Image 
                                         src={project.meta.thumbnail} 
                                         alt={project.meta.title}
-                                        className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
+                                        fill
+                                        className="object-cover transition-transform duration-500 group-hover:scale-110"
                                     />
                                 ) : (
                                     <>

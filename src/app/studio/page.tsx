@@ -3,6 +3,7 @@
 import React, { useState, useMemo } from "react"
 import { motion, AnimatePresence } from "framer-motion"
 import dynamic from "next/dynamic"
+import Image from "next/image"
 import { Badge } from "@/components/ui/badge"
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
@@ -270,7 +271,7 @@ export default function StudioPage() {
                         <header className="p-6 flex justify-between items-center border-b border-border/10">
                             <div className="flex items-center gap-3">
                                 <div className="w-8 h-8 flex items-center justify-center" style={{ backgroundColor: brand.colors.primary }}>
-                                    {brand.logo ? <img src={brand.logo} className="w-full h-full object-contain p-1" /> : <div className="w-4 h-4 bg-white/20" />}
+                                    {brand.logo ? <Image src={brand.logo} alt="Logo" width={32} height={32} className="object-contain p-1" /> : <div className="w-4 h-4 bg-white/20" />}
                                 </div>
                                 <span className="font-bold text-lg tracking-tighter" style={{ color: brand.colors.primary }}>{brand.name}</span>
                             </div>

@@ -4,7 +4,9 @@ import React, { useState } from "react"
 import { SplitPane } from "@/components/projects/split-pane"
 import { ViewportRenderer } from "@/components/projects/viewport-renderer"
 import { Badge } from "@/components/ui/badge"
+import { Button } from "@/components/ui/button"
 import { ProjectControls } from "@/components/projects/project-controls"
+import { ExternalLink, Github } from "lucide-react"
 
 interface ProjectClientWrapperProps {
   project: any
@@ -47,6 +49,25 @@ export function ProjectClientWrapper({ project }: ProjectClientWrapperProps) {
                                 {tool}
                             </Badge>
                         ))}
+                    </div>
+
+                    <div className="flex flex-wrap gap-3 pt-2">
+                        {project.meta.demoUrl && (
+                            <Button asChild size="sm" className="gap-2 rounded-full font-bold">
+                                <a href={project.meta.demoUrl} target="_blank" rel="noopener noreferrer">
+                                    <ExternalLink className="w-3.5 h-3.5" />
+                                    Launch System
+                                </a>
+                            </Button>
+                        )}
+                        {project.meta.repoUrl && (
+                            <Button asChild variant="outline" size="sm" className="gap-2 rounded-full font-bold">
+                                <a href={project.meta.repoUrl} target="_blank" rel="noopener noreferrer">
+                                    <Github className="w-3.5 h-3.5" />
+                                    Source Code
+                                </a>
+                            </Button>
+                        )}
                     </div>
 
                     {project.meta.metrics && project.meta.metrics.length > 0 && (
